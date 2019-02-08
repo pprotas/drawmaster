@@ -11,9 +11,9 @@ public class DrawMaster extends JFrame {
     }
 
     private void initUI() {
-        
+
         setTitle("Draw Master");
-        setSize(1920, 1080);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
