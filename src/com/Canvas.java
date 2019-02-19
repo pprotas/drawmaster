@@ -13,9 +13,15 @@ import javax.swing.*;
 public class Canvas extends JPanel implements MouseListener, MouseMotionListener {
 
     private static final long serialVersionUID = 1L;
-    Graphics g;
-    Shape selectedShape;
+    private Graphics g;
+    private Shape selectedShape;
     private List<Shape> shapes = new LinkedList<Shape>();
+
+    private enum Tool {
+        RECTANGLE, OVAL
+    }
+
+    Tool currentTool = Tool.OVAL;
 
     Canvas() {
 
@@ -32,31 +38,59 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     @Override
     public void mousePressed(MouseEvent e) {
         g = getGraphics();
-        Rectangle rc = new Rectangle(e.getX(), e.getY(), 0, 0);
-        selectedShape = rc;
+        Shape s = null;
+
+        switch (currentTool) {
+        case RECTANGLE:
+            s = new Rectangle(e.getX(), e.getY(), 0, 0);
+            break;
+
+        case OVAL:
+            s = new Oval(e.getX(), e.getY(), 0, 0);
+            break;
+
+        default:
+            break;
+        }
+
+        selectedShape = s;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        Rectangle rc = (Rectangle) selectedShape;
-        rc.x2 = e.getX();
-        rc.y2 = e.getY();
 
+        selectedShape.x2 = e.getX();
+        selectedShape.y2 = e.getY();
+
+        switch (currentTool) {
+        case RECTANGLE:
+            shapes.add((Rectangle) selectedShape);
+            break;
+        case OVAL:
+            shapes.add((Oval) selectedShape);
+            break;
+        }
         g.dispose();
         g = null;
 
-        shapes.add(rc);
         repaint();
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
 
-        Rectangle rc = (Rectangle) selectedShape;
-        rc.x2 = e.getX();
-        rc.y2 = e.getY();
+        selectedShape.x2 = e.getX();
+        selectedShape.y2 = e.getY();
+
+        switch (currentTool) {
+        case RECTANGLE:
+            ((Rectangle) selectedShape).draw(g);
+            break;
+        case OVAL:
+            ((Oval) selectedShape).draw(g);
+            break;
+        }
         repaint();
-        rc.draw(g);
     }
 
     @Override
@@ -64,7 +98,11 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         super.paintComponent(g);
 
         for (Shape s : shapes) {
-            ((Rectangle) s).draw(g);
+            if (s instanceof Rectangle) {
+                ((Rectangle) s).draw(g);
+            } else {
+                ((Oval) s).draw(g);
+            }
         }
     }
 
