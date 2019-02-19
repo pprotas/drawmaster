@@ -1,30 +1,31 @@
-package com;
+package main.java.com.DrawMaster.classes;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.*;
-import java.util.List;
-import java.util.LinkedList;
 
 import javax.swing.*;
+
+import java.util.List;
+import java.util.LinkedList;
 
 /**
  * Canvas
  */
 public class Canvas extends JPanel implements MouseListener, MouseMotionListener {
-
     private static final long serialVersionUID = 1L;
     private Graphics g;
-    private Shape selectedShape;
-    private List<Shape> shapes = new LinkedList<Shape>();
+    private Shape selectedShape; // Currently handled shape
+    private List<Shape> shapes = new LinkedList<Shape>(); // All shapes on the canvas
 
     private enum Tool {
         RECTANGLE, OVAL
     }
 
-    Tool currentTool = Tool.OVAL;
+    Tool currentTool = Tool.RECTANGLE; // TODO: Add button for users to change current tool
 
-    Canvas() {
-
+    public Canvas() {
         super();
         setBackground(Color.WHITE);
         addMouseListener(this);
@@ -37,23 +38,20 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
     @Override
     public void mousePressed(MouseEvent e) {
-        g = getGraphics();
-        Shape s = null;
+        g = getGraphics(); // Sets the current graphics context to 'g' so you can draw on the canvas
 
         switch (currentTool) {
         case RECTANGLE:
-            s = new Rectangle(e.getX(), e.getY(), 0, 0);
+            selectedShape = new Rectangle(e.getX(), e.getY(), 0, 0);
             break;
 
         case OVAL:
-            s = new Oval(e.getX(), e.getY(), 0, 0);
+            selectedShape = new Oval(e.getX(), e.getY(), 0, 0);
             break;
 
         default:
             break;
         }
-
-        selectedShape = s;
     }
 
     @Override
@@ -62,14 +60,8 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         selectedShape.x2 = e.getX();
         selectedShape.y2 = e.getY();
 
-        switch (currentTool) {
-        case RECTANGLE:
-            shapes.add((Rectangle) selectedShape);
-            break;
-        case OVAL:
-            shapes.add((Oval) selectedShape);
-            break;
-        }
+        shapes.add(selectedShape);
+
         g.dispose();
         g = null;
 
@@ -78,31 +70,19 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        repaint();
         selectedShape.x2 = e.getX();
         selectedShape.y2 = e.getY();
-
-        switch (currentTool) {
-        case RECTANGLE:
-            ((Rectangle) selectedShape).draw(g);
-            break;
-        case OVAL:
-            ((Oval) selectedShape).draw(g);
-            break;
-        }
-        repaint();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        selectedShape.draw(g);
+
         for (Shape s : shapes) {
-            if (s instanceof Rectangle) {
-                ((Rectangle) s).draw(g);
-            } else {
-                ((Oval) s).draw(g);
-            }
+            s.draw(g);
         }
     }
 
@@ -117,5 +97,4 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
     public void mouseMoved(MouseEvent evt) {
     } // interfaces).
-
 }
