@@ -1,4 +1,4 @@
-package main.java.com.DrawMaster.classes;
+package com.drawmaster.obj.shape;
 
 import java.awt.Graphics;
 
@@ -8,7 +8,7 @@ import java.awt.Graphics;
 public class Rectangle extends Shape {
     private static final long serialVersionUID = 1L;
 
-    Rectangle(int x, int y, int x2, int y2) {
+    public Rectangle(int x, int y, int x2, int y2) {
         super(x, y, x2, y2);
     }
 

@@ -1,8 +1,9 @@
-package main.java.com.DrawMaster.classes;
+package com.drawmaster.obj.canvas;
 
-import java.awt.Graphics;
+import com.drawmaster.obj.shape.*;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -33,7 +34,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     }
 
     public Dimension getPreferredSize() {
-        return new Dimension(250, 200);
+        return new Dimension(700, 400);
     }
 
     @Override
@@ -57,8 +58,8 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     @Override
     public void mouseReleased(MouseEvent e) {
 
-        selectedShape.x2 = e.getX();
-        selectedShape.y2 = e.getY();
+        selectedShape.setX2(e.getX());
+        selectedShape.setY2(e.getY());
 
         shapes.add(selectedShape);
 
@@ -70,16 +71,19 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        selectedShape.setX2(e.getX());
+        selectedShape.setY2(e.getY());
+
         repaint();
-        selectedShape.x2 = e.getX();
-        selectedShape.y2 = e.getY();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        selectedShape.draw(g);
+        if (selectedShape != null) {
+            selectedShape.draw(g);
+        }
 
         for (Shape s : shapes) {
             s.draw(g);

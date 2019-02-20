@@ -1,8 +1,8 @@
-package main.java.com.DrawMaster;
+package com.drawmaster.main;
 
 import javax.swing.SwingUtilities;
 
-import main.java.com.DrawMaster.classes.Canvas;
+import com.drawmaster.obj.canvas.*;
 
 import javax.swing.JFrame;
 

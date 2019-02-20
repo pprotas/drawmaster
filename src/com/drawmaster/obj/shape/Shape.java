@@ -1,4 +1,4 @@
-package main.java.com.DrawMaster.classes;
+package com.drawmaster.obj.shape;
 
 import java.awt.Graphics;
 
@@ -24,29 +24,20 @@ public abstract class Shape extends JComponent {
 
     public abstract void draw(Graphics g); // Allows for dynamic draw() calls for different shapes
 
-    public void draw() {
-        Graphics g = getGraphics();
-        draw(g);
-    }
-
     public void setX(int x) {
         this.x = x;
-        draw();
     }
 
     public void setY(int y) {
         this.y = y;
-        draw();
     }
 
     public void setX2(int x2) {
         this.x2 = x2;
-        draw();
     }
 
     public void setY2(int y2) {
         this.y2 = y2;
-        draw();
     }
 
 }
