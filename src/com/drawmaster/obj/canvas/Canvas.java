@@ -1,9 +1,13 @@
 package com.drawmaster.obj.canvas;
 
 import com.drawmaster.obj.shape.*;
+import com.drawmaster.obj.tool.*;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -16,15 +20,14 @@ import java.util.LinkedList;
  */
 public class Canvas extends JPanel implements MouseListener, MouseMotionListener {
     private static final long serialVersionUID = 1L;
-    private Graphics g;
     private Shape selectedShape; // Currently handled shape
+                                 // TODO: Implement "Group" functionality instead of "Shape" for
+                                 // selectedShape(s).
     private List<Shape> shapes = new LinkedList<Shape>(); // All shapes on the canvas
 
-    private enum Tool {
-        RECTANGLE, OVAL
-    }
-
-    Tool currentTool = Tool.RECTANGLE; // TODO: Add button for users to change current tool
+    Tool tool = new OvalTool(); // Currently selected tool
+                                // TODO: Implement tool picker screen to switch between tools.
+                                // TODO: Implement SelectTool, MoveTool and ResizeTool.
 
     public Canvas() {
         super();
@@ -39,40 +42,21 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
     @Override
     public void mousePressed(MouseEvent e) {
-        g = getGraphics(); // Sets the current graphics context to 'g' so you can draw on the canvas
-
-        switch (currentTool) {
-        case RECTANGLE:
-            selectedShape = new Rectangle(e.getX(), e.getY(), 0, 0);
-            break;
-
-        case OVAL:
-            selectedShape = new Oval(e.getX(), e.getY(), 0, 0);
-            break;
-
-        default:
-            break;
-        }
+        selectedShape = tool.mousePressed(e);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
-        selectedShape.setX2(e.getX());
-        selectedShape.setY2(e.getY());
+        selectedShape = tool.mouseReleased(e);
 
         shapes.add(selectedShape);
-
-        g.dispose();
-        g = null;
 
         repaint();
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        selectedShape.setX2(e.getX());
-        selectedShape.setY2(e.getY());
+        selectedShape = tool.mouseDragged(e);
 
         repaint();
     }
@@ -81,8 +65,12 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        // Antialiasing to prevent jagged circles
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
         if (selectedShape != null) {
-            selectedShape.draw(g);
+            selectedShape.draw(g); // TODO: Change this so it works with Group and different tools
         }
 
         for (Shape s : shapes) {
