@@ -28,6 +28,7 @@ public class DrawMaster extends JFrame {
 
         Canvas canvas = new Canvas();
         add(canvas);
+        // TODO: Add initialization for a tool picker
         pack();
 
         setVisible(true);
