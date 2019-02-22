@@ -9,7 +9,7 @@ import java.util.LinkedList;
 /**
  * ShapeTool
  */
-public abstract class ShapeTool extends Tool {
+public abstract class ShapeTool implements Tool {
     List<Shape> shapes = new LinkedList<Shape>();;
     Shape shape;
 

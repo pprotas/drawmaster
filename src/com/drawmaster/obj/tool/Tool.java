@@ -7,7 +7,7 @@ import com.drawmaster.obj.shape.Shape;
 /**
  * Tool
  */
-public abstract class Tool {
+public interface Tool {
 
     public abstract Shape mousePressed(MouseEvent e);
 

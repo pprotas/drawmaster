@@ -7,7 +7,7 @@ import com.drawmaster.obj.shape.Shape;
 /**
  * MoveTool
  */
-public class MoveTool extends Tool {
+public class MoveTool implements Tool {
 
     Shape selectedShape;
 

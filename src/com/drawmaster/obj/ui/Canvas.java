@@ -1,5 +1,6 @@
 package com.drawmaster.obj.ui;
 
+import com.drawmaster.obj.command.*;
 import com.drawmaster.obj.shape.*;
 import com.drawmaster.obj.tool.*;
 
@@ -25,6 +26,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
                                  // selectedShape(s).
     private List<Shape> shapes = new LinkedList<Shape>(); // All shapes on the canvas
 
+    Invoker commandInvoker = new Invoker();
     Tool tool = new OvalTool(shapes); // Currently selected tool
 
     public Canvas() {
@@ -63,19 +65,30 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
     @Override
     public void mousePressed(MouseEvent e) {
-        selectedShape = tool.mousePressed(e);
+        Command mDown = new ToolMDown(tool, selectedShape, e);
+        commandInvoker.setCommand(mDown);
+        commandInvoker.executeCommand();
+
+        selectedShape = ((ToolMDown) mDown).s;
+        selectedShape.repaint();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        selectedShape = tool.mouseReleased(e);
+        Command mUp = new ToolMUp(tool, selectedShape, e);
+        commandInvoker.setCommand(mUp);
+        commandInvoker.executeCommand();
+
+        selectedShape = ((ToolMUp) mUp).s;
 
         repaint();
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        selectedShape = tool.mouseDragged(e);
+        Command mDragged = new ToolMDragged(tool, selectedShape, e);
+        commandInvoker.setCommand(mDragged);
+        commandInvoker.executeCommand();
 
         repaint();
     }
