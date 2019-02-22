@@ -10,24 +10,23 @@ import java.util.List;
  * RectangleTool
  */
 public class RectangleTool extends ShapeTool {
-    Rectangle rc;
 
     public RectangleTool(List<Shape> shapes) {
         super(shapes);
     }
 
     public Shape mousePressed(MouseEvent e) {
-        rc = new Rectangle(0, 0, 0, 0);
-        return rc.mousePressed(e);
+        shape = new Rectangle(0, 0, 0, 0);
+        return shape.mousePressed(e);
     }
 
     public Shape mouseReleased(MouseEvent e) {
-        rc.mouseReleased(e);
-        shapes.add(rc);
-        return rc;
+        shape.mouseReleased(e);
+        shapes.add(shape);
+        return shape;
     }
 
     public Shape mouseDragged(MouseEvent e) {
-        return rc.mouseDragged(e);
+        return shape.mouseDragged(e);
     }
 }

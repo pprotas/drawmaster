@@ -11,6 +11,7 @@ import java.util.LinkedList;
  */
 public abstract class ShapeTool extends Tool {
     List<Shape> shapes = new LinkedList<Shape>();;
+    Shape shape;
 
     public ShapeTool(List<Shape> shapes) {
         this.shapes = shapes;
