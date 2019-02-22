@@ -2,7 +2,7 @@ package com.drawmaster.main;
 
 import javax.swing.SwingUtilities;
 
-import com.drawmaster.obj.canvas.*;
+import com.drawmaster.obj.ui.*;
 
 import javax.swing.JFrame;
 
@@ -23,13 +23,17 @@ public class DrawMaster extends JFrame {
     }
 
     public void init() {
-        setLocation(100, 100);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Canvas canvas = new Canvas();
         add(canvas);
-        // TODO: Add initialization for a tool picker
         pack();
+
+        ToolBar toolPicker = new ToolBar(this, canvas);
+
+        setLocationRelativeTo(null); // Centers the JFrame
+        toolPicker.setLocation(this.getX() + this.getWidth(), this.getY());
 
         setVisible(true);
     }

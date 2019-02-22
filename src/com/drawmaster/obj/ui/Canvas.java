@@ -1,4 +1,4 @@
-package com.drawmaster.obj.canvas;
+package com.drawmaster.obj.ui;
 
 import com.drawmaster.obj.shape.*;
 import com.drawmaster.obj.tool.*;
@@ -25,19 +25,40 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
                                  // selectedShape(s).
     private List<Shape> shapes = new LinkedList<Shape>(); // All shapes on the canvas
 
-    Tool tool = new OvalTool(); // Currently selected tool
-                                // TODO: Implement tool picker screen to switch between tools.
-                                // TODO: Implement SelectTool, MoveTool and ResizeTool.
+    Tool tool = new OvalTool(shapes); // Currently selected tool
 
     public Canvas() {
         super();
         setBackground(Color.WHITE);
         addMouseListener(this);
         addMouseMotionListener(this);
+        setPreferredSize(new Dimension(700, 400));
     }
 
-    public Dimension getPreferredSize() {
-        return new Dimension(700, 400);
+    public void setTool(Tool tool) {
+        this.tool = tool;
+
+    }
+
+    public void setTool(String tool) {
+        switch (tool) {
+        case "Oval":
+            setTool(new OvalTool(shapes));
+            break;
+        case "Rectangle":
+            setTool(new RectangleTool(shapes));
+            break;
+        case "Select":
+            setTool(new SelectTool(shapes));
+            break;
+        case "Move":
+            setTool(new MoveTool(selectedShape));
+            break;
+        case "Resize":
+            setTool(new ResizeTool(selectedShape));
+            break;
+        }
+
     }
 
     @Override
@@ -48,8 +69,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     @Override
     public void mouseReleased(MouseEvent e) {
         selectedShape = tool.mouseReleased(e);
-
-        shapes.add(selectedShape);
 
         repaint();
     }
@@ -74,7 +93,9 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         }
 
         for (Shape s : shapes) {
-            s.draw(g);
+            if (s != null) {
+                s.draw(g);
+            }
         }
     }
 
