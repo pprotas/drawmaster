@@ -10,7 +10,7 @@ import java.util.LinkedList;
  * SelectTool
  */
 public class SelectTool implements Tool {
-    List<Shape> shapes = new LinkedList<Shape>();;
+    private List<Shape> shapes = new LinkedList<Shape>();;
 
     public SelectTool(List<Shape> shapes) {
         this.shapes = shapes;
@@ -18,11 +18,6 @@ public class SelectTool implements Tool {
 
     @Override
     public Shape mousePressed(MouseEvent e) {
-        return null;
-    }
-
-    @Override
-    public Shape mouseReleased(MouseEvent e) {
         for (Shape s : shapes) {
             if (s != null) {
                 if (s.contains(e.getPoint())) {
@@ -34,8 +29,13 @@ public class SelectTool implements Tool {
     }
 
     @Override
+    public Shape mouseReleased(MouseEvent e) {
+        return mousePressed(e);
+    }
+
+    @Override
     public Shape mouseDragged(MouseEvent e) {
-        return null;
+        return mousePressed(e);
     }
 
 }

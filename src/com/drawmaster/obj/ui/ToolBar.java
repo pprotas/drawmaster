@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 
+import com.drawmaster.obj.command.Command;
+import com.drawmaster.obj.command.SetTool;
+
 /**
  * ToolBar
  */
@@ -15,7 +18,7 @@ public class ToolBar extends JDialog implements ActionListener {
 
     private static final long serialVersionUID = 1L;
 
-    Canvas canvas;
+    private Canvas canvas;
 
     public ToolBar(Window window, Canvas canvas) {
         super(window);
@@ -47,6 +50,9 @@ public class ToolBar extends JDialog implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String action = e.getActionCommand();
-        canvas.setTool(action);
+
+        Command setTool = new SetTool(canvas, action);
+        canvas.commandInvoker.setCommand(setTool);
+        canvas.commandInvoker.executeCommand();
     }
 }
