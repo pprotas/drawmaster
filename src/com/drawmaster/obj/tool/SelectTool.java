@@ -10,7 +10,7 @@ import java.util.LinkedList;
  * SelectTool
  */
 public class SelectTool implements Tool {
-    List<Shape> shapes = new LinkedList<Shape>();;
+    private List<Shape> shapes = new LinkedList<Shape>();;
 
     public SelectTool(List<Shape> shapes) {
         this.shapes = shapes;

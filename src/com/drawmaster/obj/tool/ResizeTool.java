@@ -9,7 +9,7 @@ import com.drawmaster.obj.shape.Shape;
  */
 public class ResizeTool implements Tool {
 
-    Shape selectedShape;
+    private Shape selectedShape;
 
     public ResizeTool(Shape selectedShape) {
         this.selectedShape = selectedShape;

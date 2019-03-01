@@ -9,7 +9,7 @@ import com.drawmaster.obj.shape.Shape;
  */
 public class MoveTool implements Tool {
 
-    Shape selectedShape;
+    private Shape selectedShape;
 
     public MoveTool(Shape selectedShape) {
         this.selectedShape = selectedShape;
