@@ -26,7 +26,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
                                  // selectedShape(s).
     private List<Shape> shapes = new LinkedList<Shape>(); // All shapes on the canvas
 
-    private Invoker commandInvoker = new Invoker();
+    public Invoker commandInvoker = new Invoker();
     private Tool tool = new OvalTool(shapes); // Currently selected tool
 
     public Canvas() {
