@@ -8,15 +8,9 @@ import com.drawmaster.obj.tool.Tool;
 /**
  * ToolMUp
  */
-public class ToolMUp implements Command {
-    Tool tool;
-    public Shape shape;
-    MouseEvent e;
-
-    public ToolMUp(Tool tool, Shape shape, MouseEvent e) {
-        this.tool = tool;
-        this.shape = shape;
-        this.e = e;
+public class ToolMUp extends ToolCommand {
+public ToolMUp(Tool tool, Shape shape, MouseEvent e) {
+        super(tool, shape, e);
     }
 
     @Override

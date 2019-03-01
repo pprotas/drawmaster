@@ -8,15 +8,9 @@ import com.drawmaster.obj.tool.Tool;
 /**
  * ToolMDragged
  */
-public class ToolMDragged implements Command {
-    Tool tool;
-    Shape shape;
-    MouseEvent e;
-
-    public ToolMDragged(Tool tool, Shape shape, MouseEvent e) {
-        this.tool = tool;
-        this.shape = shape;
-        this.e = e;
+public class ToolMDragged extends ToolCommand {
+public ToolMDragged(Tool tool, Shape shape, MouseEvent e) {
+        super(tool, shape, e);
     }
 
     @Override

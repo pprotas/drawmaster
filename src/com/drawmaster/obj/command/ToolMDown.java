@@ -8,15 +8,9 @@ import com.drawmaster.obj.tool.Tool;
 /**
  * ToolMDown
  */
-public class ToolMDown implements Command {
-    Tool tool;
-    public Shape shape;
-    MouseEvent e;
-
+public class ToolMDown extends ToolCommand {
     public ToolMDown(Tool tool, Shape shape, MouseEvent e) {
-        this.tool = tool;
-        this.shape = shape;
-        this.e = e;
+        super(tool, shape, e);
     }
 
     @Override
