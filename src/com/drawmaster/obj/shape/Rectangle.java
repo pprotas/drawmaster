@@ -17,4 +17,9 @@ public class Rectangle extends Shape {
         g.drawRect(Math.min(x, x2), Math.min(y, y2), Math.abs(x - x2), Math.abs(y - y2));
     }
 
+    @Override
+    public String getType() {
+        return "rectangle";
+    }
+
 }

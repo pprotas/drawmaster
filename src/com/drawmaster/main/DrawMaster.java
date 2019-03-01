@@ -30,6 +30,9 @@ public class DrawMaster extends JFrame {
         add(canvas);
         pack();
 
+        MenuBar menuBar = new MenuBar(this, canvas);
+        this.setJMenuBar(menuBar);
+
         ToolBar toolPicker = new ToolBar(this, canvas);
 
         setLocationRelativeTo(null); // Centers the JFrame

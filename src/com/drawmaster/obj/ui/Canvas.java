@@ -37,6 +37,19 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         setPreferredSize(new Dimension(700, 400));
     }
 
+    public List<Shape> getShapes() {
+        return shapes;
+    }
+
+    public void addShape(Shape shape) {
+        shapes.add(shape);
+    }
+
+    public void clearList() {
+        selectedShape = null;
+        shapes.clear();
+    }
+
     public void setTool(Tool tool) {
         this.tool = tool;
 

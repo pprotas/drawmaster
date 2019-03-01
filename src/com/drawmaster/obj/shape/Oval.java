@@ -16,4 +16,9 @@ public class Oval extends Shape {
     public void draw(Graphics g) {
         g.drawOval(Math.min(x, x2), Math.min(y, y2), Math.abs(x - x2), Math.abs(y - y2));
     }
+
+    @Override
+    public String getType() {
+        return "oval";
+    }
 }
