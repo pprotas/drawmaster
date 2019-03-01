@@ -9,9 +9,9 @@ import com.drawmaster.obj.tool.Tool;
  * ToolCommand
  */
 public abstract class ToolCommand implements Command {
-    Tool tool;
-    public Shape shape;
-    MouseEvent e;
+    protected Tool tool;
+    protected Shape shape;
+    protected MouseEvent e;
 
     public ToolCommand(Tool tool, Shape shape, MouseEvent e) {
         this.tool = tool;
@@ -19,6 +19,9 @@ public abstract class ToolCommand implements Command {
         this.e = e;
     }
 
+    public Shape getShape(){
+        return shape;
+    }
     @Override
     public void execute() {
 

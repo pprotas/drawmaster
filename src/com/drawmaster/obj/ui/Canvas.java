@@ -65,28 +65,28 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
     @Override
     public void mousePressed(MouseEvent e) {
-        Command mDown = new ToolMDown(tool, selectedShape, e);
+        ToolCommand mDown = new ToolMDown(tool, selectedShape, e);
         commandInvoker.setCommand(mDown);
         commandInvoker.executeCommand();
 
-        selectedShape = ((ToolMDown) mDown).shape;
+        selectedShape = mDown.getShape();
         selectedShape.repaint();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        Command mUp = new ToolMUp(tool, selectedShape, e);
+        ToolCommand mUp = new ToolMUp(tool, selectedShape, e);
         commandInvoker.setCommand(mUp);
         commandInvoker.executeCommand();
 
-        selectedShape = ((ToolMUp) mUp).shape;
+        selectedShape = mUp.getShape();
 
         repaint();
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        Command mDragged = new ToolMDragged(tool, selectedShape, e);
+        ToolCommand mDragged = new ToolMDragged(tool, selectedShape, e);
         commandInvoker.setCommand(mDragged);
         commandInvoker.executeCommand();
 
