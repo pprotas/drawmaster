@@ -1,7 +1,6 @@
 package com.drawmaster.obj.ui;
 
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -10,7 +9,6 @@ import javax.swing.KeyStroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -84,9 +82,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Open a file");
 
-        int returnVal = fileChooser.showOpenDialog(dm);
-
-        String content = " ";
+        fileChooser.showSaveDialog(dm);
 
         Scanner sc = null;
 
@@ -139,7 +135,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Save file");
 
-        int returnVal = fileChooser.showSaveDialog(dm);
+        fileChooser.showSaveDialog(dm);
 
         FileWriter fw = null;
         try{
