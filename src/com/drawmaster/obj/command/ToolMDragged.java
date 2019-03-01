@@ -10,18 +10,18 @@ import com.drawmaster.obj.tool.Tool;
  */
 public class ToolMDragged implements Command {
     Tool tool;
-    Shape s;
+    Shape shape;
     MouseEvent e;
 
-    public ToolMDragged(Tool tool, Shape s, MouseEvent e) {
+    public ToolMDragged(Tool tool, Shape shape, MouseEvent e) {
         this.tool = tool;
-        this.s = s;
+        this.shape = shape;
         this.e = e;
     }
 
     @Override
     public void execute() {
-        s = tool.mouseDragged(e);
+        shape = tool.mouseDragged(e);
     }
 
     public void undo() {

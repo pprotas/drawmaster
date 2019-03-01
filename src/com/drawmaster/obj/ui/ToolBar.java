@@ -15,7 +15,7 @@ public class ToolBar extends JDialog implements ActionListener {
 
     private static final long serialVersionUID = 1L;
 
-    Canvas canvas;
+    private Canvas canvas;
 
     public ToolBar(Window window, Canvas canvas) {
         super(window);

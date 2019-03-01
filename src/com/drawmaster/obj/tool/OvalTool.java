@@ -15,18 +15,20 @@ public class OvalTool extends ShapeTool {
     }
 
     public Shape mousePressed(MouseEvent e) {
-        shape = new Oval(0, 0, 0, 0);
-
-        return shape.mousePressed(e);
+        shape = new Oval(e.getX(), e.getY(), e.getX(), e.getY());
+        return shape;
     }
 
     public Shape mouseReleased(MouseEvent e) {
-        shape.mouseReleased(e);
+        shape.setX(e.getX());
+        shape.setY(e.getY());
         shapes.add(shape);
         return shape;
     }
 
     public Shape mouseDragged(MouseEvent e) {
-        return shape.mouseDragged(e);
+        shape.setX(e.getX());
+        shape.setY(e.getY());
+        return shape;
     }
 }

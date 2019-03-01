@@ -2,8 +2,6 @@ package com.drawmaster.obj.shape;
 
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.event.MouseEvent;
-
 import javax.swing.JComponent;
 
 /**
@@ -27,28 +25,10 @@ public abstract class Shape extends JComponent {
     public abstract void draw(Graphics g); // Allows for dynamic draw() calls for different shapes
 
     public boolean contains(Point p) {
-        if (!(p.x >= x && p.x <= x2 && p.y >= y && p.y <= y2)) {
-            return false;
+        if (p.x <= x && p.x >= x2 && p.y <= y && p.y >= y2) {
+            return true;
         }
-        return true;
-    }
-
-    public Shape mousePressed(MouseEvent e) {
-        this.setX(e.getX());
-        this.setY(e.getY());
-        return this;
-    }
-
-    public Shape mouseReleased(MouseEvent e) {
-        this.setX2(e.getX());
-        this.setY2(e.getY());
-        return this;
-    }
-
-    public Shape mouseDragged(MouseEvent e) {
-        this.setX2(e.getX());
-        this.setY2(e.getY());
-        return this;
+        return false;
     }
 
     public int getX() {

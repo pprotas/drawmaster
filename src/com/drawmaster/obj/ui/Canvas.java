@@ -26,8 +26,8 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
                                  // selectedShape(s).
     private List<Shape> shapes = new LinkedList<Shape>(); // All shapes on the canvas
 
-    Invoker commandInvoker = new Invoker();
-    Tool tool = new OvalTool(shapes); // Currently selected tool
+    private Invoker commandInvoker = new Invoker();
+    private Tool tool = new OvalTool(shapes); // Currently selected tool
 
     public Canvas() {
         super();
@@ -69,7 +69,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         commandInvoker.setCommand(mDown);
         commandInvoker.executeCommand();
 
-        selectedShape = ((ToolMDown) mDown).s;
+        selectedShape = ((ToolMDown) mDown).shape;
         selectedShape.repaint();
     }
 
@@ -79,7 +79,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         commandInvoker.setCommand(mUp);
         commandInvoker.executeCommand();
 
-        selectedShape = ((ToolMUp) mUp).s;
+        selectedShape = ((ToolMUp) mUp).shape;
 
         repaint();
     }

@@ -10,18 +10,18 @@ import com.drawmaster.obj.tool.Tool;
  */
 public class ToolMDown implements Command {
     Tool tool;
-    public Shape s;
+    public Shape shape;
     MouseEvent e;
 
-    public ToolMDown(Tool tool, Shape s, MouseEvent e) {
+    public ToolMDown(Tool tool, Shape shape, MouseEvent e) {
         this.tool = tool;
-        this.s = s;
+        this.shape = shape;
         this.e = e;
     }
 
     @Override
     public void execute() {
-        s = tool.mousePressed(e);
+        shape = tool.mousePressed(e);
     }
 
     public void undo() {

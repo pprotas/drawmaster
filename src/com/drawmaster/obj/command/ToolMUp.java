@@ -10,18 +10,18 @@ import com.drawmaster.obj.tool.Tool;
  */
 public class ToolMUp implements Command {
     Tool tool;
-    public Shape s;
+    public Shape shape;
     MouseEvent e;
 
-    public ToolMUp(Tool tool, Shape s, MouseEvent e) {
+    public ToolMUp(Tool tool, Shape shape, MouseEvent e) {
         this.tool = tool;
-        this.s = s;
+        this.shape = shape;
         this.e = e;
     }
 
     @Override
     public void execute() {
-        s = tool.mouseReleased(e);
+        shape = tool.mouseReleased(e);
     }
 
     public void undo() {
