@@ -1,7 +1,5 @@
 package com.drawmaster.obj.ui;
 
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -10,13 +8,9 @@ import javax.swing.KeyStroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import com.drawmaster.main.*;
-import com.drawmaster.obj.shape.*;
+import com.drawmaster.obj.command.FileOpen;
+import com.drawmaster.obj.command.FileSave;
 
 
 /**
@@ -70,97 +64,13 @@ public class MenuBar extends JMenuBar implements ActionListener {
     public void performAction(String action){
         switch(action){
             case "Open":
-                openFile();
+                canvas.commandInvoker.setCommand(new FileOpen(dm, canvas));
+                canvas.commandInvoker.executeCommand();
                 break;
             case "Save":
-                saveFile();
+                canvas.commandInvoker.setCommand(new FileSave(dm, canvas));
+                canvas.commandInvoker.executeCommand();
                 break;
         }
-    }
-
-    public void openFile() {
-        canvas.clearList();
-
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Open a file");
-
-        int returnVal = fileChooser.showOpenDialog(dm);
-
-        String content = " ";
-
-        Scanner sc = null;
-
-        try {
-        sc = new Scanner(fileChooser.getSelectedFile());
-        }
-        catch (Exception e){}
-
-        ArrayList<String> words = new ArrayList<String>();
-
-        while (sc.hasNext()) {
-            words.add(sc.next());
-        }
-
-        
-
-        for (int i = 0; i < words.size(); i++) {
-            int x = 0;
-            int y = 0;
-            int x2 = 0;
-            int y2 = 0;
-            switch (words.get(i)) {
-                case "oval":
-                    try{
-                        x = Integer.parseInt(words.get(++i));
-                        y = Integer.parseInt(words.get(++i));
-                        x2 = Integer.parseInt(words.get(++i));
-                        y2 = Integer.parseInt(words.get(++i));
-                    }
-                    catch(Exception e){}
-                    canvas.addShape(new Oval(x, y, x2, y2));
-
-                    break;
-                case "rectangle":
-                    try{
-                        x = Integer.parseInt(words.get(++i));
-                        y = Integer.parseInt(words.get(++i));
-                        x2 = Integer.parseInt(words.get(++i));
-                        y2 = Integer.parseInt(words.get(++i));
-                    }
-                    catch(Exception e){}
-                    canvas.addShape(new Rectangle(x, y, x2, y2));
-                    break;
-            }
-            canvas.repaint();
-        }
-    }
-
-    public void saveFile() {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Save file");
-
-        int returnVal = fileChooser.showSaveDialog(dm);
-
-        FileWriter fw = null;
-        try{
-        fw = new FileWriter(fileChooser.getSelectedFile(), false);
-        }
-        catch(Exception e){
-
-        }
-        for (Shape s: canvas.getShapes()) {
-            try{
-                if(fw !=null){
-                
-                fw.write(s.getType() + " " + s.getX() + " " + s.getY() + " " + s.getX2() + " " + s.getY2() + "\r\n");
-                }
-            }
-            catch(Exception e){}
-        }
-        try {
-            fw.close();
-        }
-        catch(Exception e){}
-
     }
 }
