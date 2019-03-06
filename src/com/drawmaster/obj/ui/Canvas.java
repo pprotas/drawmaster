@@ -26,7 +26,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
                                  // selectedShape(s).
     private List<Shape> shapes = new LinkedList<Shape>(); // All shapes on the canvas
 
-    public Invoker commandInvoker = new Invoker();
+    private Invoker commandInvoker = new Invoker();
     private Tool tool = new OvalTool(this, shapes); // Currently selected tool
 
     public Canvas() {
@@ -39,6 +39,18 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
     public List<Shape> getShapes() {
         return shapes;
+    }
+
+    public Invoker getInvoker() {
+        return commandInvoker;
+    }
+
+    public Shape getSelectedShape() {
+        return selectedShape;
+    }
+
+    public void setSelectedShape(Shape shape) {
+        selectedShape = shape;
     }
 
     public void addShape(Shape shape) {
@@ -63,7 +75,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
             setTool(new RectangleTool(this, shapes));
             break;
         case "Select":
-            setTool(new SelectTool(shapes));
+            setTool(new SelectTool(this, shapes));
             break;
         case "Move":
             setTool(new MoveTool(selectedShape));
@@ -114,14 +126,16 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        if (selectedShape != null) {
-            selectedShape.draw(g); // TODO: Change this so it works with Group and different tools
-        }
-
         for (Shape s : shapes) {
             if (s != null) {
                 s.draw(g);
             }
+        }
+
+        if (selectedShape != null) {
+            g.setColor(Color.RED);
+            selectedShape.draw(g); // TODO: Change this so it works with Group and different tools
+            g.setColor(Color.BLACK);
         }
     }
 

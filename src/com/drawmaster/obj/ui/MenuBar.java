@@ -69,13 +69,13 @@ public class MenuBar extends JMenuBar implements ActionListener {
     public void performAction(String action) {
         switch (action) {
         case "Open":
-            canvas.commandInvoker.execute(new FileOpen(dm, canvas));
+            canvas.getInvoker().execute(new FileOpen(dm, canvas));
             break;
         case "Save":
-            canvas.commandInvoker.execute(new FileSave(dm, canvas));
+            canvas.getInvoker().execute(new FileSave(dm, canvas));
             break;
         case "Undo":
-            canvas.commandInvoker.undo();
+            canvas.getInvoker().undo();
             canvas.repaint();
             canvas.nullSelectedShape();
             break;

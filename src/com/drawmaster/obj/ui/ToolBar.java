@@ -52,6 +52,6 @@ public class ToolBar extends JDialog implements ActionListener {
         String action = e.getActionCommand();
 
         Command setTool = new SetTool(canvas, action);
-        canvas.commandInvoker.execute(setTool);
+        canvas.getInvoker().execute(setTool);
     }
 }
