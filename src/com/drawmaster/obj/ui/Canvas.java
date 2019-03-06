@@ -26,8 +26,8 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
                                  // selectedShape(s).
     private List<Shape> shapes = new LinkedList<Shape>(); // All shapes on the canvas
 
-    public Invoker commandInvoker = new Invoker();
-    private Tool tool = new OvalTool(shapes); // Currently selected tool
+    private Invoker commandInvoker = new Invoker();
+    private Tool tool = new OvalTool(this, shapes); // Currently selected tool
 
     public Canvas() {
         super();
@@ -41,6 +41,18 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         return shapes;
     }
 
+    public Invoker getInvoker() {
+        return commandInvoker;
+    }
+
+    public Shape getSelectedShape() {
+        return selectedShape;
+    }
+
+    public void setSelectedShape(Shape shape) {
+        selectedShape = shape;
+    }
+
     public void addShape(Shape shape) {
         shapes.add(shape);
     }
@@ -52,19 +64,18 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
     public void setTool(Tool tool) {
         this.tool = tool;
-
     }
 
     public void setTool(String tool) {
         switch (tool) {
         case "Oval":
-            setTool(new OvalTool(shapes));
+            setTool(new OvalTool(this, shapes));
             break;
         case "Rectangle":
-            setTool(new RectangleTool(shapes));
+            setTool(new RectangleTool(this, shapes));
             break;
         case "Select":
-            setTool(new SelectTool(shapes));
+            setTool(new SelectTool(this, shapes));
             break;
         case "Move":
             setTool(new MoveTool(selectedShape));
@@ -76,11 +87,14 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
     }
 
+    public void nullSelectedShape() {
+        selectedShape = null;
+    }
+
     @Override
     public void mousePressed(MouseEvent e) {
         ToolCommand mDown = new ToolMDown(tool, selectedShape, e);
-        commandInvoker.setCommand(mDown);
-        commandInvoker.executeCommand();
+        commandInvoker.execute(mDown);
 
         selectedShape = mDown.getShape();
         selectedShape.repaint();
@@ -89,8 +103,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     @Override
     public void mouseReleased(MouseEvent e) {
         ToolCommand mUp = new ToolMUp(tool, selectedShape, e);
-        commandInvoker.setCommand(mUp);
-        commandInvoker.executeCommand();
+        commandInvoker.execute(mUp);
 
         selectedShape = mUp.getShape();
 
@@ -100,8 +113,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     @Override
     public void mouseDragged(MouseEvent e) {
         ToolCommand mDragged = new ToolMDragged(tool, selectedShape, e);
-        commandInvoker.setCommand(mDragged);
-        commandInvoker.executeCommand();
+        commandInvoker.execute(mDragged);
 
         repaint();
     }
@@ -114,14 +126,16 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        if (selectedShape != null) {
-            selectedShape.draw(g); // TODO: Change this so it works with Group and different tools
-        }
-
         for (Shape s : shapes) {
             if (s != null) {
                 s.draw(g);
             }
+        }
+
+        if (selectedShape != null) {
+            g.setColor(Color.RED);
+            selectedShape.draw(g); // TODO: Change this so it works with Group and different tools
+            g.setColor(Color.BLACK);
         }
     }
 

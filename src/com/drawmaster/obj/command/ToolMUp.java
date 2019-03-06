@@ -9,7 +9,7 @@ import com.drawmaster.obj.tool.Tool;
  * ToolMUp
  */
 public class ToolMUp extends ToolCommand {
-public ToolMUp(Tool tool, Shape shape, MouseEvent e) {
+    public ToolMUp(Tool tool, Shape shape, MouseEvent e) {
         super(tool, shape, e);
     }
 
@@ -19,6 +19,11 @@ public ToolMUp(Tool tool, Shape shape, MouseEvent e) {
     }
 
     public void undo() {
+        tool.undo();
+    }
+
+    @Override
+    public void redo() {
 
     }
 }

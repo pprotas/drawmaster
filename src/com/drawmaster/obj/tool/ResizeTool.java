@@ -10,9 +10,13 @@ import com.drawmaster.obj.shape.Shape;
 public class ResizeTool implements Tool {
 
     private Shape selectedShape;
+    private int oldX2;
+    private int oldY2;
 
     public ResizeTool(Shape selectedShape) {
         this.selectedShape = selectedShape;
+        oldX2 = selectedShape.getX2();
+        oldY2 = selectedShape.getY2();
     }
 
     @Override
@@ -33,6 +37,17 @@ public class ResizeTool implements Tool {
     @Override
     public Shape mouseDragged(MouseEvent e) {
         return mousePressed(e);
+    }
+
+    @Override
+    public void undo() {
+        selectedShape.setX2(oldX2);
+        selectedShape.setY2(oldY2);
+    }
+
+    @Override
+    public String getType() {
+        return "Resize";
     }
 
 }

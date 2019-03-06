@@ -4,6 +4,8 @@ import java.awt.event.MouseEvent;
 
 import com.drawmaster.obj.shape.Rectangle;
 import com.drawmaster.obj.shape.Shape;
+import com.drawmaster.obj.ui.Canvas;
+
 import java.util.List;
 
 /**
@@ -11,8 +13,8 @@ import java.util.List;
  */
 public class RectangleTool extends ShapeTool {
 
-    public RectangleTool(List<Shape> shapes) {
-        super(shapes);
+    public RectangleTool(Canvas canvas, List<Shape> shapes) {
+        super(canvas, shapes);
     }
 
     public Shape mousePressed(MouseEvent e) {
@@ -20,16 +22,9 @@ public class RectangleTool extends ShapeTool {
         return shape;
     }
 
-    public Shape mouseReleased(MouseEvent e) {
-        shape.setX(e.getX());
-        shape.setY(e.getY());
-        shapes.add(shape);
-        return shape;
+    @Override
+    public String getType() {
+        return "Rectangle";
     }
 
-    public Shape mouseDragged(MouseEvent e) {
-        shape.setX(e.getX());
-        shape.setY(e.getY());
-        return shape;
-    }
 }
