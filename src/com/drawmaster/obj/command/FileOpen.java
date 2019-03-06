@@ -31,9 +31,9 @@ public class FileOpen extends FileCommand {
         Scanner sc = null;
 
         try {
-        sc = new Scanner(fileChooser.getSelectedFile());
+            sc = new Scanner(fileChooser.getSelectedFile());
+        } catch (Exception e) {
         }
-        catch (Exception e){}
 
         ArrayList<String> words = new ArrayList<String>();
 
@@ -41,35 +41,33 @@ public class FileOpen extends FileCommand {
             words.add(sc.next());
         }
 
-        
-
         for (int i = 0; i < words.size(); i++) {
             int x = 0;
             int y = 0;
             int x2 = 0;
             int y2 = 0;
             switch (words.get(i)) {
-                case "oval":
-                    try{
-                        x = Integer.parseInt(words.get(++i));
-                        y = Integer.parseInt(words.get(++i));
-                        x2 = Integer.parseInt(words.get(++i));
-                        y2 = Integer.parseInt(words.get(++i));
-                    }
-                    catch(Exception e){}
-                    canvas.addShape(new Oval(x, y, x2, y2));
+            case "oval":
+                try {
+                    x = Integer.parseInt(words.get(++i));
+                    y = Integer.parseInt(words.get(++i));
+                    x2 = Integer.parseInt(words.get(++i));
+                    y2 = Integer.parseInt(words.get(++i));
+                } catch (Exception e) {
+                }
+                canvas.addShape(new Oval(x, y, x2, y2));
 
-                    break;
-                case "rectangle":
-                    try{
-                        x = Integer.parseInt(words.get(++i));
-                        y = Integer.parseInt(words.get(++i));
-                        x2 = Integer.parseInt(words.get(++i));
-                        y2 = Integer.parseInt(words.get(++i));
-                    }
-                    catch(Exception e){}
-                    canvas.addShape(new Rectangle(x, y, x2, y2));
-                    break;
+                break;
+            case "rectangle":
+                try {
+                    x = Integer.parseInt(words.get(++i));
+                    y = Integer.parseInt(words.get(++i));
+                    x2 = Integer.parseInt(words.get(++i));
+                    y2 = Integer.parseInt(words.get(++i));
+                } catch (Exception e) {
+                }
+                canvas.addShape(new Rectangle(x, y, x2, y2));
+                break;
             }
             canvas.repaint();
         }
@@ -77,6 +75,11 @@ public class FileOpen extends FileCommand {
 
     @Override
     public void undo() {
+
+    }
+
+    @Override
+    public void redo() {
 
     }
 }

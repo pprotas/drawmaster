@@ -4,14 +4,16 @@ import java.awt.event.MouseEvent;
 
 import com.drawmaster.obj.shape.Oval;
 import com.drawmaster.obj.shape.Shape;
+import com.drawmaster.obj.ui.Canvas;
+
 import java.util.List;
 
 /**
  * OvalTool
  */
 public class OvalTool extends ShapeTool {
-    public OvalTool(List<Shape> shapes) {
-        super(shapes);
+    public OvalTool(Canvas canvas, List<Shape> shapes) {
+        super(canvas, shapes);
     }
 
     public Shape mousePressed(MouseEvent e) {
@@ -23,6 +25,8 @@ public class OvalTool extends ShapeTool {
         shape.setX(e.getX());
         shape.setY(e.getY());
         shapes.add(shape);
+
+        canvas.setTool("Oval");
         return shape;
     }
 
@@ -31,4 +35,5 @@ public class OvalTool extends ShapeTool {
         shape.setY(e.getY());
         return shape;
     }
+
 }

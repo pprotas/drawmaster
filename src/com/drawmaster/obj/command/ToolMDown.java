@@ -21,4 +21,9 @@ public class ToolMDown extends ToolCommand {
     public void undo() {
 
     }
+
+    @Override
+    public void redo() {
+
+    }
 }

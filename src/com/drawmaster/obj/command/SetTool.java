@@ -9,10 +9,11 @@ public class SetTool implements Command {
     private Canvas canvas;
     private String tool;
 
-    public SetTool(Canvas canvas, String tool){
+    public SetTool(Canvas canvas, String tool) {
         this.canvas = canvas;
         this.tool = tool;
     }
+
     @Override
     public void execute() {
         canvas.setTool(tool);
@@ -23,5 +24,9 @@ public class SetTool implements Command {
 
     }
 
-    
+    @Override
+    public void redo() {
+
+    }
+
 }

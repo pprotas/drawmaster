@@ -35,4 +35,9 @@ public class ResizeTool implements Tool {
         return mousePressed(e);
     }
 
+    @Override
+    public void undo() {
+
+    }
+
 }

@@ -29,6 +29,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
         JMenu menu;
         JMenuItem open;
         JMenuItem save;
+        JMenuItem undo;
 
         menu = new JMenu("File");
         menu.setMnemonic(KeyEvent.VK_A);
@@ -48,7 +49,13 @@ public class MenuBar extends JMenuBar implements ActionListener {
         save.addActionListener(this);
         save.setActionCommand("Save");
 
-        menu.add(save);
+        undo = new JMenuItem("Undo", KeyEvent.VK_Z);
+        undo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
+        undo.getAccessibleContext().setAccessibleDescription("Undo");
+        undo.addActionListener(this);
+        undo.setActionCommand("Undo");
+
+        menu.add(undo);
 
         this.add(menu);
     }
@@ -59,16 +66,19 @@ public class MenuBar extends JMenuBar implements ActionListener {
         performAction(command);
     }
 
-    public void performAction(String action){
-        switch(action){
-            case "Open":
-                canvas.commandInvoker.setCommand(new FileOpen(dm, canvas));
-                canvas.commandInvoker.executeCommand();
-                break;
-            case "Save":
-                canvas.commandInvoker.setCommand(new FileSave(dm, canvas));
-                canvas.commandInvoker.executeCommand();
-                break;
+    public void performAction(String action) {
+        switch (action) {
+        case "Open":
+            canvas.commandInvoker.execute(new FileOpen(dm, canvas));
+            break;
+        case "Save":
+            canvas.commandInvoker.execute(new FileSave(dm, canvas));
+            break;
+        case "Undo":
+            canvas.commandInvoker.undo();
+            canvas.repaint();
+            canvas.nullSelectedShape();
+            break;
         }
     }
 }

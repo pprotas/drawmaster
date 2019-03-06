@@ -9,7 +9,7 @@ import com.drawmaster.obj.tool.Tool;
  * ToolMDragged
  */
 public class ToolMDragged extends ToolCommand {
-public ToolMDragged(Tool tool, Shape shape, MouseEvent e) {
+    public ToolMDragged(Tool tool, Shape shape, MouseEvent e) {
         super(tool, shape, e);
     }
 
@@ -19,6 +19,11 @@ public ToolMDragged(Tool tool, Shape shape, MouseEvent e) {
     }
 
     public void undo() {
+
+    }
+
+    @Override
+    public void redo() {
 
     }
 }

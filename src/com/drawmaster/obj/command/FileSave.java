@@ -25,29 +25,34 @@ public class FileSave extends FileCommand {
         fileChooser.showSaveDialog(dm);
 
         FileWriter fw = null;
-        try{
-        fw = new FileWriter(fileChooser.getSelectedFile(), false);
-        }
-        catch(Exception e){
+        try {
+            fw = new FileWriter(fileChooser.getSelectedFile(), false);
+        } catch (Exception e) {
 
         }
-        for (Shape s: canvas.getShapes()) {
-            try{
-                if(fw !=null){
-                
-                fw.write(s.getType() + " " + s.getX() + " " + s.getY() + " " + s.getX2() + " " + s.getY2() + "\r\n");
+        for (Shape s : canvas.getShapes()) {
+            try {
+                if (fw != null) {
+
+                    fw.write(
+                            s.getType() + " " + s.getX() + " " + s.getY() + " " + s.getX2() + " " + s.getY2() + "\r\n");
                 }
+            } catch (Exception e) {
             }
-            catch(Exception e){}
         }
         try {
             fw.close();
+        } catch (Exception e) {
         }
-        catch(Exception e){}
     }
-    
+
     @Override
     public void undo() {
-    
+
+    }
+
+    @Override
+    public void redo() {
+
     }
 }

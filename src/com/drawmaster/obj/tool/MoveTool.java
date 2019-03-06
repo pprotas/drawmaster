@@ -40,4 +40,9 @@ public class MoveTool implements Tool {
         return mousePressed(e);
     }
 
+    @Override
+    public void undo() {
+
+    }
+
 }
