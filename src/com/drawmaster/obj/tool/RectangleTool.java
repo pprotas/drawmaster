@@ -22,16 +22,9 @@ public class RectangleTool extends ShapeTool {
         return shape;
     }
 
-    public Shape mouseReleased(MouseEvent e) {
-        shape.setX(e.getX());
-        shape.setY(e.getY());
-        shapes.add(shape);
-        return shape;
+    @Override
+    public String getType() {
+        return "Rectangle";
     }
 
-    public Shape mouseDragged(MouseEvent e) {
-        shape.setX(e.getX());
-        shape.setY(e.getY());
-        return shape;
-    }
 }

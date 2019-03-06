@@ -45,4 +45,9 @@ public class MoveTool implements Tool {
 
     }
 
+    @Override
+    public String getType() {
+        return "Move";
+    }
+
 }

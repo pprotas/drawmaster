@@ -21,19 +21,9 @@ public class OvalTool extends ShapeTool {
         return shape;
     }
 
-    public Shape mouseReleased(MouseEvent e) {
-        shape.setX(e.getX());
-        shape.setY(e.getY());
-        shapes.add(shape);
-
-        canvas.setTool("Oval");
-        return shape;
-    }
-
-    public Shape mouseDragged(MouseEvent e) {
-        shape.setX(e.getX());
-        shape.setY(e.getY());
-        return shape;
+    @Override
+    public String getType() {
+        return "Oval";
     }
 
 }

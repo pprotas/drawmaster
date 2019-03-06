@@ -15,5 +15,7 @@ public interface Tool {
 
     public abstract Shape mouseDragged(MouseEvent e);
 
+    public abstract String getType();
+
     public abstract void undo();
 }

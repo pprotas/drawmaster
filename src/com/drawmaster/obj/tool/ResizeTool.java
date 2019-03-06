@@ -40,4 +40,9 @@ public class ResizeTool implements Tool {
 
     }
 
+    @Override
+    public String getType() {
+        return "Resize";
+    }
+
 }

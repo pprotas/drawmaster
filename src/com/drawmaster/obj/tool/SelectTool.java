@@ -42,4 +42,9 @@ public class SelectTool implements Tool {
     public void undo() {
 
     }
+
+    @Override
+    public String getType() {
+        return "Select";
+    }
 }
