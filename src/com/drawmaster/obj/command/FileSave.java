@@ -45,14 +45,4 @@ public class FileSave extends FileCommand {
         } catch (Exception e) {
         }
     }
-
-    @Override
-    public void undo() {
-
-    }
-
-    @Override
-    public void redo() {
-
-    }
 }

@@ -18,15 +18,4 @@ public class SetTool implements Command {
     public void execute() {
         canvas.setTool(tool);
     }
-
-    @Override
-    public void undo() {
-
-    }
-
-    @Override
-    public void redo() {
-
-    }
-
 }

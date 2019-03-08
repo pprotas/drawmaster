@@ -72,14 +72,4 @@ public class FileOpen extends FileCommand {
             canvas.repaint();
         }
     }
-
-    @Override
-    public void undo() {
-
-    }
-
-    @Override
-    public void redo() {
-
-    }
 }

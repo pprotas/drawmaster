@@ -27,9 +27,8 @@ public abstract class ToolCommand implements Command {
 
     }
 
-    @Override
-    public void undo() {
-
-    }
+    public abstract void undo();
+    
+    public abstract void redo();
     
 }

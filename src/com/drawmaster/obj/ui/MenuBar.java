@@ -48,7 +48,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
         save.getAccessibleContext().setAccessibleDescription("Save a file");
         save.addActionListener(this);
         save.setActionCommand("Save");
-
+        menu.add(save);
+        
         undo = new JMenuItem("Undo", KeyEvent.VK_Z);
         undo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK));
         undo.getAccessibleContext().setAccessibleDescription("Undo");

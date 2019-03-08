@@ -20,9 +20,4 @@ public abstract class FileCommand implements Command {
     public void execute() {
 
     }
-
-    @Override
-    public void undo() {
-
-    }
 }
