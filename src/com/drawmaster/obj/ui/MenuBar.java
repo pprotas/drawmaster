@@ -29,6 +29,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
         JMenuItem open;
         JMenuItem save;
         JMenuItem undo;
+        JMenuItem redo;
 
         menu = new JMenu("File");
         menu.setMnemonic(KeyEvent.VK_A);
@@ -53,8 +54,14 @@ public class MenuBar extends JMenuBar implements ActionListener {
         undo.getAccessibleContext().setAccessibleDescription("Undo");
         undo.addActionListener(this);
         undo.setActionCommand("Undo");
-
         menu.add(undo);
+
+        redo = new JMenuItem("Redo", KeyEvent.VK_Z);
+        redo.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Y, ActionEvent.CTRL_MASK));
+        redo.getAccessibleContext().setAccessibleDescription("Redo");
+        redo.addActionListener(this);
+        redo.setActionCommand("Redo");
+        menu.add(redo);
 
         this.add(menu);
     }
@@ -78,6 +85,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
             canvas.repaint();
             canvas.nullSelectedShape();
             break;
+        case "Redo":
+            canvas.getInvoker().redo();
+            canvas.repaint();
+            canvas.nullSelectedShape();
         }
     }
 }

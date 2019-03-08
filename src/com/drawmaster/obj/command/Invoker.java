@@ -15,7 +15,7 @@ public class Invoker {
     }
 
     public void execute(Command cmd) {
-        if (!(cmd instanceof ToolMDown || cmd instanceof ToolMDragged || cmd instanceof SetTool)) {
+        if (!(cmd instanceof ToolMDown || cmd instanceof ToolMDragged || cmd instanceof SetTool || cmd instanceof FileCommand)) {
             undoStack.push(cmd);
             redoStack.clear();
         }

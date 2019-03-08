@@ -18,12 +18,13 @@ public class ToolMUp extends ToolCommand {
         shape = tool.mouseReleased(e);
     }
 
+    @Override
     public void undo() {
         tool.undo();
     }
 
     @Override
     public void redo() {
-
+        execute();
     }
 }

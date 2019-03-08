@@ -18,4 +18,5 @@ public interface Tool {
     public abstract String getType();
 
     public abstract void undo();
+
 }

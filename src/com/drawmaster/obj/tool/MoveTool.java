@@ -25,6 +25,11 @@ public class MoveTool implements Tool {
 
     @Override
     public Shape mousePressed(MouseEvent e) {
+        return selectedShape;
+    }
+
+    @Override
+    public Shape mouseReleased(MouseEvent e) {
         if (selectedShape != null) {
             int x = selectedShape.getX();
             int y = selectedShape.getY();
@@ -39,13 +44,13 @@ public class MoveTool implements Tool {
     }
 
     @Override
-    public Shape mouseReleased(MouseEvent e) {
-        return selectedShape;
+    public Shape mouseDragged(MouseEvent e) {
+        return mouseReleased(e);
     }
 
     @Override
-    public Shape mouseDragged(MouseEvent e) {
-        return mousePressed(e);
+    public String getType() {
+        return "Move";
     }
 
     @Override
@@ -54,11 +59,5 @@ public class MoveTool implements Tool {
         selectedShape.setX2(oldX2);
         selectedShape.setY(oldY);
         selectedShape.setY2(oldY2);
-    }
-
-    @Override
-    public String getType() {
-        return "Move";
-    }
-
+    } 
 }

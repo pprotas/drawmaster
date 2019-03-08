@@ -3,7 +3,6 @@ package com.drawmaster.obj.tool;
 import java.awt.event.MouseEvent;
 
 import com.drawmaster.obj.shape.Shape;
-import com.drawmaster.obj.ui.Canvas;
 
 import java.util.List;
 import java.util.LinkedList;
@@ -12,12 +11,9 @@ import java.util.LinkedList;
  * SelectTool
  */
 public class SelectTool implements Tool {
-    private Canvas canvas;
     private List<Shape> shapes = new LinkedList<Shape>();;
-    private Shape oldShape;
 
-    public SelectTool(Canvas canvas, List<Shape> shapes) {
-        this.canvas = canvas;
+    public SelectTool(List<Shape> shapes) {
         this.shapes = shapes;
     }
 
@@ -26,7 +22,6 @@ public class SelectTool implements Tool {
         for (Shape s : shapes) {
             if (s != null) {
                 if (s.contains(e.getPoint())) {
-                    oldShape = canvas.getSelectedShape();
                     return s;
                 }
             }
@@ -45,12 +40,12 @@ public class SelectTool implements Tool {
     }
 
     @Override
-    public void undo() {
-        canvas.setSelectedShape(oldShape); // TODO: Select tool undo is buggy
+    public String getType() {
+        return "Select";
     }
 
     @Override
-    public String getType() {
-        return "Select";
+    public void undo() {
+
     }
 }

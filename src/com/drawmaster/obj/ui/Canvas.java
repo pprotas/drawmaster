@@ -75,7 +75,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
             setTool(new RectangleTool(this, shapes));
             break;
         case "Select":
-            setTool(new SelectTool(this, shapes));
+            setTool(new SelectTool(shapes));
             break;
         case "Move":
             setTool(new MoveTool(selectedShape));

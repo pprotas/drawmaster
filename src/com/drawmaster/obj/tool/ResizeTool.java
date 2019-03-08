@@ -21,22 +21,23 @@ public class ResizeTool implements Tool {
 
     @Override
     public Shape mousePressed(MouseEvent e) {
+        return selectedShape;
+    }
+
+    @Override
+    public Shape mouseReleased(MouseEvent e) {
         if (selectedShape != null) {
             selectedShape.setX2(e.getX());
             selectedShape.setY2(e.getY());
 
         }
         return selectedShape;
-    }
 
-    @Override
-    public Shape mouseReleased(MouseEvent e) {
-        return selectedShape;
     }
 
     @Override
     public Shape mouseDragged(MouseEvent e) {
-        return mousePressed(e);
+        return mouseReleased(e);
     }
 
     @Override
