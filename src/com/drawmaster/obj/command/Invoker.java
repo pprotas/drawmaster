@@ -15,7 +15,7 @@ public class Invoker {
     }
 
     public void execute(Command cmd) {
-        if (cmd instanceof ToolCommand) {
+        if (cmd instanceof ToolMUp) {
             undoStack.push(cmd);
             redoStack.clear();
         }
@@ -25,14 +25,14 @@ public class Invoker {
     public void undo() {
         if (!undoStack.isEmpty()) {
             Command cmd = undoStack.pop();
-            ((ToolCommand)cmd).undo();
+            ((ToolCommand) cmd).undo();
             redoStack.push(cmd);
         }
     }
 
     public void redo() {
         Command cmd = redoStack.pop();
-        ((ToolCommand)cmd).redo();
+        ((ToolCommand) cmd).redo();
         undoStack.push(cmd);
     }
 }
