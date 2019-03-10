@@ -32,7 +32,7 @@ public class Invoker {
 
     public void redo() {
         Command cmd = redoStack.pop();
-        cmd.execute();
+        ((ToolCommand)cmd).redo();
         undoStack.push(cmd);
     }
 }
