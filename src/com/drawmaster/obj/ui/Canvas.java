@@ -14,6 +14,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import java.util.List;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
@@ -24,10 +25,10 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     private Shape selectedShape; // Currently handled shape
                                  // TODO: Implement "Group" functionality instead of "Shape" for
                                  // selectedShape(s).
-    private List<Shape> shapes = new LinkedList<Shape>(); // All shapes on the canvas
+    private List<Shape> shapes; // All shapes on the canvas
 
-    private Invoker commandInvoker = new Invoker();
-    private Tool tool = new OvalTool(this, shapes); // Currently selected tool
+    private Invoker commandInvoker;
+    private Tool tool; // Currently selected tool
 
     public Canvas() {
         super();
@@ -35,6 +36,10 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         addMouseListener(this);
         addMouseMotionListener(this);
         setPreferredSize(new Dimension(700, 400));
+
+        shapes = new LinkedList<Shape>();
+        commandInvoker = new Invoker();
+        tool = new OvalTool(this, shapes);
     }
 
     public List<Shape> getShapes() {
@@ -75,13 +80,19 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
             setTool(new RectangleTool(this, shapes));
             break;
         case "Select":
-            setTool(new SelectTool(shapes));
+            if (shapes != null) {
+                setTool(new SelectTool(shapes));
+            }
             break;
         case "Move":
-            setTool(new MoveTool(selectedShape));
+            if (selectedShape != null) {
+                setTool(new MoveTool(selectedShape));
+            }
             break;
         case "Resize":
-            setTool(new ResizeTool(selectedShape));
+            if (selectedShape != null) {
+                setTool(new ResizeTool(selectedShape));
+            }
             break;
         }
 
