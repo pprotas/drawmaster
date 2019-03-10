@@ -126,7 +126,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        shapes.forEach(s -> s.draw(g)); // Tekent alle shapes
+        shapes.parallelStream().forEach(s -> s.draw(g)); // Tekent alle shapes (multi-threaded)
 
         if (selectedShape != null) {
             g.setColor(Color.RED);
