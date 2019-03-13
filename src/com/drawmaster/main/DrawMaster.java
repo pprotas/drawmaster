@@ -35,8 +35,11 @@ public class DrawMaster extends JFrame {
 
         ToolBar toolPicker = new ToolBar(this, canvas);
 
+        GroupBar groupBar = new GroupBar(this, canvas);
+
         setLocationRelativeTo(null); // Centers the JFrame
         toolPicker.setLocation(this.getX() + this.getWidth(), this.getY());
+        groupBar.setLocation(this.getX() + this.getWidth(), this.getY() + toolPicker.getHeight());
 
         setVisible(true);
     }
