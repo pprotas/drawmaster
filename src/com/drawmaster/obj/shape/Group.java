@@ -1,43 +1,64 @@
 package com.drawmaster.obj.shape;
 
-import java.awt.Graphics;
 import java.util.List;
+import java.awt.Graphics;
 import java.util.LinkedList;
 
 /**
  * Group
  */
-public class Group extends Shape {
+public class Group {
 
-    private static final long serialVersionUID = 1L;
-
-    private List<Shape> shapes = new LinkedList<Shape>();
+    private List<Shape> shapes;
+    private List<Group> subGroups;
 
     public Group() {
-        super(0, 0, 0, 0);
+        shapes = new LinkedList<Shape>();
+        subGroups = new LinkedList<Group>();
     }
 
-    @Override
     public void draw(Graphics g) {
+        for (Group group : subGroups) {
+            group.draw(g);
+        }
 
-    }
-
-    @Override
-    public String getType() {
-        return "group";
-    }
-
-    public void addShape(Shape s) {
-        shapes.add(s);
-    }
-
-    public void removeShape(Shape s) {
-        shapes.remove(s);
+        for (Shape shape : shapes) {
+            shape.draw(g);
+        }
     }
 
     public List<Shape> getShapes() {
+        List<Shape> shapes = new LinkedList<Shape>();
+
+        for (Shape shape : this.shapes) {
+            shapes.add(shape);
+        }
+
+        for (Group group : subGroups) {
+            shapes.addAll(group.getShapes());
+        }
+
         return shapes;
     }
 
-    
+    public void add(Shape shape) {
+        shapes.add(shape);
+    }
+
+    public void remove(Shape shape) {
+        shapes.remove(shape);
+    }
+
+    public void add(Group group) {
+        subGroups.add(group);
+    }
+
+    public void remove(Group group) {
+        subGroups.remove(group);
+    }
+
+    public void clear() {
+        shapes = null;
+        subGroups = null;
+    }
 }

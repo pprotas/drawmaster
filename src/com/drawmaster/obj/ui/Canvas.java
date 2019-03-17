@@ -24,7 +24,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     private Shape selectedShape; // Currently handled shape
                                  // TODO: Implement "Group" functionality instead of "Shape" for
                                  // selectedShape(s).
-    private List<Shape> shapes = new LinkedList<Shape>(); // All shapes on the canvas
+    private Group shapes = new Group(); // All shapes on the canvas
 
     private Invoker commandInvoker = new Invoker();
     private Tool tool = new OvalTool(this, shapes); // Currently selected tool
@@ -37,7 +37,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         setPreferredSize(new Dimension(700, 400));
     }
 
-    public List<Shape> getShapes() {
+    public Group getShapes() {
         return shapes;
     }
 
@@ -126,11 +126,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        for (Shape s : shapes) {
-            if (s != null) {
-                s.draw(g);
-            }
-        }
+        shapes.draw(g);
 
         if (selectedShape != null) {
             g.setColor(Color.RED);
