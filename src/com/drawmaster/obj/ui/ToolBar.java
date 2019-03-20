@@ -10,6 +10,9 @@ import javax.swing.JDialog;
 
 import com.drawmaster.obj.command.Command;
 import com.drawmaster.obj.command.SetTool;
+import com.drawmaster.obj.tool.*;
+
+import java.util.*;
 
 /**
  * ToolBar
@@ -39,8 +42,6 @@ public class ToolBar extends JDialog implements ActionListener {
             b.addActionListener(this);
             b.setActionCommand(t);
             add(b);
-            // b.setMnemonic(KeyEvent.VK_D);
-            // TODO: Possible keyboard shortcuts (For example ALT+R for rectangle tool)
         }
 
         pack();

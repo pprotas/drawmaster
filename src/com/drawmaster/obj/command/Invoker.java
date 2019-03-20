@@ -15,7 +15,11 @@ public class Invoker {
     }
 
     public void execute(Command cmd) {
+<<<<<<< HEAD
         if (cmd instanceof ToolCommand) { // Alleen tool command moeten undo en redo hebben. De rest (filecommands en change tool commands) niet.
+=======
+        if (cmd instanceof ToolMUp) {
+>>>>>>> 33ca5e1ccadb2595f1da6b4c6f9cd035901faf36
             undoStack.push(cmd);
             redoStack.clear();
         }
@@ -25,14 +29,14 @@ public class Invoker {
     public void undo() {
         if (!undoStack.isEmpty()) {
             Command cmd = undoStack.pop();
-            ((ToolCommand)cmd).undo();
+            ((ToolCommand) cmd).undo();
             redoStack.push(cmd);
         }
     }
 
     public void redo() {
         Command cmd = redoStack.pop();
-        ((ToolCommand)cmd).redo();
+        ((ToolCommand) cmd).redo();
         undoStack.push(cmd);
     }
 }
