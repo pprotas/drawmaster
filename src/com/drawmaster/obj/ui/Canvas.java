@@ -33,6 +33,9 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         addMouseListener(this);
         addMouseMotionListener(this);
         setPreferredSize(new Dimension(700, 400));
+
+        commandInvoker = new Invoker();
+        tool = new OvalTool(this, mainGroup);
     }
 
     public static Canvas getInstance() {
@@ -77,13 +80,19 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
             setTool(new RectangleTool(this, mainGroup));
             break;
         case "Select":
-            setTool(new SelectTool(mainGroup));
+            if (mainGroup != null) {
+                setTool(new SelectTool(mainGroup));
+            }
             break;
         case "Move":
-            setTool(new MoveTool(selectedShape));
+            if (selectedShape != null) {
+                setTool(new MoveTool(selectedShape));
+            }
             break;
         case "Resize":
-            setTool(new ResizeTool(selectedShape));
+            if (selectedShape != null) {
+                setTool(new ResizeTool(selectedShape));
+            }
             break;
         }
 
@@ -128,7 +137,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // Antialiasing
 
-        mainGroup.draw(g); // Tekent alle shapes
+        mainGroup.draw(g); // Tekent alle mainGroup
 
         if (selectedShape != null) {
             g.setColor(Color.RED);
