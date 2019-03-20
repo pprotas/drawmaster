@@ -5,9 +5,6 @@ import java.awt.event.MouseEvent;
 import com.drawmaster.obj.shape.Group;
 import com.drawmaster.obj.shape.Shape;
 
-import java.util.List;
-import java.util.LinkedList;
-
 /**
  * SelectTool
  */

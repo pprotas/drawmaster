@@ -13,9 +13,6 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import java.util.List;
-import java.util.LinkedList;
-
 /**
  * Canvas
  */
@@ -24,12 +21,13 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     private Shape selectedShape; // Currently handled shape
                                  // TODO: Implement "Group" functionality instead of "Shape" for
                                  // selectedShape(s).
-    private Group shapes = new Group(); // All shapes on the canvas
+    private Group mainGroup = new Group(); // All groups on the canvas
 
     private Invoker commandInvoker = new Invoker();
-    private Tool tool = new OvalTool(this, shapes); // Currently selected tool
+    private Tool tool = new OvalTool(this, mainGroup); // Currently selected tool
+    private static Canvas instance = new Canvas(); // Singleton instance
 
-    public Canvas() {
+    private Canvas() {
         super();
         setBackground(Color.WHITE);
         addMouseListener(this);
@@ -37,8 +35,12 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         setPreferredSize(new Dimension(700, 400));
     }
 
-    public Group getShapes() {
-        return shapes;
+    public static Canvas getInstance() {
+        return instance;
+    }
+
+    public Group getGroups() {
+        return mainGroup;
     }
 
     public Invoker getInvoker() {
@@ -54,12 +56,12 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     }
 
     public void addShape(Shape shape) {
-        shapes.add(shape);
+        mainGroup.add(shape);
     }
 
     public void clearList() {
         selectedShape = null;
-        shapes.clear();
+        mainGroup.clear();
     }
 
     public void setTool(Tool tool) {
@@ -69,13 +71,13 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     public void setTool(String tool) {
         switch (tool) {
         case "Oval":
-            setTool(new OvalTool(this, shapes));
+            setTool(new OvalTool(this, mainGroup));
             break;
         case "Rectangle":
-            setTool(new RectangleTool(this, shapes));
+            setTool(new RectangleTool(this, mainGroup));
             break;
         case "Select":
-            setTool(new SelectTool(shapes));
+            setTool(new SelectTool(mainGroup));
             break;
         case "Move":
             setTool(new MoveTool(selectedShape));
@@ -94,10 +96,10 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     @Override
     public void mousePressed(MouseEvent e) {
         ToolCommand mDown = new ToolMDown(tool, selectedShape, e);
-        commandInvoker.execute(mDown);
+        commandInvoker.execute(mDown); // Command pattern
 
         selectedShape = mDown.getShape();
-        selectedShape.repaint();
+        selectedShape.repaint(); // Roept paintComponent() aan
     }
 
     @Override
@@ -124,13 +126,13 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
         // Antialiasing to prevent jagged circles
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // Antialiasing
 
-        shapes.draw(g);
+        mainGroup.draw(g); // Tekent alle shapes
 
         if (selectedShape != null) {
             g.setColor(Color.RED);
-            selectedShape.draw(g); // TODO: Change this so it works with Group and different tools
+            selectedShape.draw(g); // Maakt de huidige shape rood en tekent hem
             g.setColor(Color.BLACK);
         }
     }

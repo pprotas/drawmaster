@@ -30,7 +30,7 @@ public class FileSave extends FileCommand {
         } catch (Exception e) {
 
         }
-        for (Shape s : canvas.getShapes().getShapes()) {
+        for (Shape s : canvas.getGroups().getShapes()) {
             try {
                 if (fw != null) {
 

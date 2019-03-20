@@ -13,6 +13,7 @@ public abstract class ToolCommand implements Command {
     protected Shape shape;
     protected MouseEvent e;
 
+    // Base class voor tool-gerelateerde commands
     public ToolCommand(Tool tool, Shape shape, MouseEvent e) {
         this.tool = tool;
         this.shape = shape;

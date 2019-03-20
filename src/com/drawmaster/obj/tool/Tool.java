@@ -17,6 +17,6 @@ public interface Tool {
 
     public abstract String getType();
 
-    public abstract void undo();
+    public abstract void undo(); // Redo wordt in de command gedaan
 
 }
