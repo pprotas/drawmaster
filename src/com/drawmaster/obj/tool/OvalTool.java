@@ -2,17 +2,16 @@ package com.drawmaster.obj.tool;
 
 import java.awt.event.MouseEvent;
 
+import com.drawmaster.obj.shape.Group;
 import com.drawmaster.obj.shape.Oval;
 import com.drawmaster.obj.shape.Shape;
 import com.drawmaster.obj.ui.Canvas;
-
-import java.util.List;
 
 /**
  * OvalTool
  */
 public class OvalTool extends ShapeTool {
-    public OvalTool(Canvas canvas, List<Shape> shapes) {
+    public OvalTool(Canvas canvas, Group shapes) {
         super(canvas, shapes);
     }
 

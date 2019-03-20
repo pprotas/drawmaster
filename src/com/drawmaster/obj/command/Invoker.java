@@ -15,7 +15,7 @@ public class Invoker {
     }
 
     public void execute(Command cmd) {
-        if (cmd instanceof ToolCommand) {
+        if (cmd instanceof ToolCommand) { // Alleen tool command moeten undo en redo hebben. De rest (filecommands en change tool commands) niet.
             undoStack.push(cmd);
             redoStack.clear();
         }

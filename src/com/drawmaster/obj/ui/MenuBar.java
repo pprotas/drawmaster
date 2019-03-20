@@ -73,6 +73,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
         performAction(command);
     }
 
+    // Verandert de tool met een command
     public void performAction(String action) {
         switch (action) {
         case "Open":

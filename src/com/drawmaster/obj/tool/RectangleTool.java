@@ -2,18 +2,17 @@ package com.drawmaster.obj.tool;
 
 import java.awt.event.MouseEvent;
 
+import com.drawmaster.obj.shape.Group;
 import com.drawmaster.obj.shape.Rectangle;
 import com.drawmaster.obj.shape.Shape;
 import com.drawmaster.obj.ui.Canvas;
-
-import java.util.List;
 
 /**
  * RectangleTool
  */
 public class RectangleTool extends ShapeTool {
 
-    public RectangleTool(Canvas canvas, List<Shape> shapes) {
+    public RectangleTool(Canvas canvas, Group shapes) {
         super(canvas, shapes);
     }
 

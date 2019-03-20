@@ -23,6 +23,7 @@ public abstract class Shape extends JComponent {
     }
 
     public abstract void draw(Graphics g); // Allows for dynamic draw() calls for different shapes
+    
     public abstract String getType();
     public boolean contains(Point p) {
         if (p.x <= x && p.x >= x2 && p.y <= y && p.y >= y2) {

@@ -2,24 +2,22 @@ package com.drawmaster.obj.tool;
 
 import java.awt.event.MouseEvent;
 
+import com.drawmaster.obj.shape.Group;
 import com.drawmaster.obj.shape.Shape;
-
-import java.util.List;
-import java.util.LinkedList;
 
 /**
  * SelectTool
  */
 public class SelectTool implements Tool {
-    private List<Shape> shapes = new LinkedList<Shape>();;
+    private Group shapes = new Group();;
 
-    public SelectTool(List<Shape> shapes) {
+    public SelectTool(Group shapes) {
         this.shapes = shapes;
     }
 
     @Override
     public Shape mousePressed(MouseEvent e) {
-        for (Shape s : shapes) {
+        for (Shape s : shapes.getShapes()) {
             if (s != null) {
                 if (s.contains(e.getPoint())) {
                     return s;

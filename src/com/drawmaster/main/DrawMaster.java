@@ -10,11 +10,8 @@ public class DrawMaster extends JFrame {
     private static final long serialVersionUID = 1L;
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new DrawMaster("DrawMaster");
-            }
-        });
+        // Programma runnen zodra alles is geladen
+        SwingUtilities.invokeLater(() -> new DrawMaster("DrawMaster"));
     }
 
     DrawMaster(String title) {
@@ -26,17 +23,20 @@ public class DrawMaster extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Canvas canvas = new Canvas();
+        Canvas canvas = Canvas.getInstance(); // Singleton instance van Canvas
         add(canvas);
         pack();
 
-        MenuBar menuBar = new MenuBar(this, canvas);
+        MenuBar menuBar = new MenuBar(this, canvas); // De menubar voor save/load
         this.setJMenuBar(menuBar);
 
-        ToolBar toolPicker = new ToolBar(this, canvas);
+        ToolBar toolPicker = new ToolBar(this, canvas); // Toolbar
+
+        GroupBar groupBar = new GroupBar(this, canvas); // GroupBar voor group functionaliteit
 
         setLocationRelativeTo(null); // Centers the JFrame
         toolPicker.setLocation(this.getX() + this.getWidth(), this.getY());
+        groupBar.setLocation(this.getX() + this.getWidth(), this.getY() + toolPicker.getHeight());
 
         setVisible(true);
     }
