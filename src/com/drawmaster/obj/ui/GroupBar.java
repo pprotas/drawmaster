@@ -1,19 +1,14 @@
 package com.drawmaster.obj.ui;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Window;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JList;
-import javax.swing.ListModel;
 
 import com.drawmaster.obj.shape.Group;
 
@@ -43,8 +38,8 @@ public class GroupBar extends JDialog {
 
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
-        //layout.setHgap(2);
-        //layout.setVgap(2);
+        // layout.setHgap(2);
+        // layout.setVgap(2);
 
         setLayout(layout);
 

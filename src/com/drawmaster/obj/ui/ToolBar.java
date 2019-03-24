@@ -10,9 +10,6 @@ import javax.swing.JDialog;
 
 import com.drawmaster.obj.command.Command;
 import com.drawmaster.obj.command.SetTool;
-import com.drawmaster.obj.tool.*;
-
-import java.util.*;
 
 /**
  * ToolBar
