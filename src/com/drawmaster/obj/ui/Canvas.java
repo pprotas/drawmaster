@@ -3,6 +3,7 @@ package com.drawmaster.obj.ui;
 import com.drawmaster.obj.command.*;
 import com.drawmaster.obj.shape.*;
 import com.drawmaster.obj.tool.*;
+import com.drawmaster.obj.visitor.*;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -102,27 +103,50 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
     @Override
     public void mousePressed(MouseEvent e) {
-        ToolCommand mDown = new ToolMDown(tool, selectedShape, e);
-        commandInvoker.execute(mDown); // Command pattern
+        if (tool instanceof MoveTool) {
+            selectedShape.accept(new ShapeMoveVisitor(e)); // Naar wens van de opdrachtgever: Move en Resize zijn geen
+                                                           // commands, maar visitors. Dit betekent dat move en resize
+                                                           // ook geen undo() en redo() hebben. Als je de
+                                                           // command-pattern versie van Move en Resize wil gebruiken
+                                                           // moet je deze 2 if-statements verwijderen.
+        } else if (tool instanceof ResizeTool) {
+            selectedShape.accept(new ShapeResizeVisitor(e));
+        } else {
+            ToolCommand mDown = new ToolMDown(tool, selectedShape, e);
+            commandInvoker.execute(mDown); // Command pattern
 
-        selectedShape = mDown.getShape();
-        selectedShape.repaint(); // Roept paintComponent() aan
+            selectedShape = mDown.getShape();
+        }
+
+        repaint(); // Roept paintComponent() aan
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        ToolCommand mUp = new ToolMUp(tool, selectedShape, e);
-        commandInvoker.execute(mUp);
+        if (tool instanceof MoveTool) {
+            selectedShape.accept(new ShapeMoveVisitor(e));
+        } else if (tool instanceof ResizeTool) {
+            selectedShape.accept(new ShapeResizeVisitor(e));
+        } else {
+            ToolCommand mUp = new ToolMUp(tool, selectedShape, e);
+            commandInvoker.execute(mUp);
 
-        selectedShape = mUp.getShape();
+            selectedShape = mUp.getShape();
+        }
 
         repaint();
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        ToolCommand mDragged = new ToolMDragged(tool, selectedShape, e);
-        commandInvoker.execute(mDragged);
+        if (tool instanceof MoveTool) {
+            selectedShape.accept(new ShapeMoveVisitor(e));
+        } else if (tool instanceof ResizeTool) {
+            selectedShape.accept(new ShapeResizeVisitor(e));
+        } else {
+            ToolCommand mDragged = new ToolMDragged(tool, selectedShape, e);
+            commandInvoker.execute(mDragged);
+        }
 
         repaint();
     }

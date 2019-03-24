@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Point;
 import javax.swing.JComponent;
 
+import com.drawmaster.obj.visitor.ShapeVisitor;
+
 /**
  * Shape
  */
@@ -23,8 +25,13 @@ public abstract class Shape extends JComponent {
     }
 
     public abstract void draw(Graphics g); // Allows for dynamic draw() calls for different shapes
-    
+
     public abstract String getType();
+
+    public void accept(ShapeVisitor visitor) {
+        visitor.visit(this);
+    }
+
     public boolean contains(Point p) {
         if (p.x <= x && p.x >= x2 && p.y <= y && p.y >= y2) {
             return true;
