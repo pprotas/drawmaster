@@ -3,6 +3,7 @@ package com.drawmaster.obj.tool;
 import java.awt.event.MouseEvent;
 
 import com.drawmaster.obj.shape.Shape;
+import com.drawmaster.obj.visitor.ShapeResizeVisitor;
 
 /**
  * MoveTool
@@ -21,23 +22,21 @@ public class ResizeTool implements Tool {
 
     @Override
     public Shape mousePressed(MouseEvent e) {
+        selectedShape.accept(new ShapeResizeVisitor(e));
         return selectedShape;
     }
 
     @Override
     public Shape mouseReleased(MouseEvent e) {
-        if (selectedShape != null) {
-            selectedShape.setX2(e.getX());
-            selectedShape.setY2(e.getY());
-
-        }
+        selectedShape.accept(new ShapeResizeVisitor(e));
         return selectedShape;
 
     }
 
     @Override
     public Shape mouseDragged(MouseEvent e) {
-        return mouseReleased(e);
+        selectedShape.accept(new ShapeResizeVisitor(e));
+        return selectedShape;
     }
 
     @Override
