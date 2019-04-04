@@ -1,12 +1,8 @@
 package com.drawmaster.obj.command;
 
-import java.io.FileWriter;
-
-import javax.swing.JFileChooser;
-
 import com.drawmaster.main.DrawMaster;
-import com.drawmaster.obj.shape.Shape;
 import com.drawmaster.obj.ui.Canvas;
+import com.drawmaster.obj.visitor.DrawMasterSaveVisitor;
 
 /**
  * FileSave
@@ -19,30 +15,6 @@ public class FileSave extends FileCommand {
 
     @Override
     public void execute() {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Save file");
-
-        fileChooser.showSaveDialog(dm);
-
-        FileWriter fw = null;
-        try {
-            fw = new FileWriter(fileChooser.getSelectedFile(), false);
-        } catch (Exception e) {
-
-        }
-        for (Shape s : canvas.getGroups().getShapes()) {
-            try {
-                if (fw != null) {
-
-                    fw.write(
-                            s.getType() + " " + s.getX() + " " + s.getY() + " " + s.getX2() + " " + s.getY2() + "\r\n");
-                }
-            } catch (Exception e) {
-            }
-        }
-        try {
-            fw.close();
-        } catch (Exception e) {
-        }
+        dm.accept(new DrawMasterSaveVisitor());
     }
 }

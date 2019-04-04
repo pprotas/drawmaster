@@ -3,6 +3,7 @@ package com.drawmaster.obj.tool;
 import java.awt.event.MouseEvent;
 
 import com.drawmaster.obj.shape.Shape;
+import com.drawmaster.obj.visitor.ShapeMoveVisitor;
 
 /**
  * MoveTool
@@ -25,27 +26,20 @@ public class MoveTool implements Tool {
 
     @Override
     public Shape mousePressed(MouseEvent e) {
+        selectedShape.accept(new ShapeMoveVisitor(e));
         return selectedShape;
     }
 
     @Override
     public Shape mouseReleased(MouseEvent e) {
-        if (selectedShape != null) {
-            int x = selectedShape.getX();
-            int y = selectedShape.getY();
-            selectedShape.setX(e.getX());
-            selectedShape.setY(e.getY());
-            int newX = selectedShape.getX();
-            int newY = selectedShape.getY();
-            selectedShape.setX2(selectedShape.getX2() + (newX - x));
-            selectedShape.setY2(selectedShape.getY2() + (newY - y));
-        }
+        selectedShape.accept(new ShapeMoveVisitor(e));
         return selectedShape;
     }
 
     @Override
     public Shape mouseDragged(MouseEvent e) {
-        return mouseReleased(e);
+        selectedShape.accept(new ShapeMoveVisitor(e));
+        return selectedShape;
     }
 
     @Override
@@ -59,5 +53,5 @@ public class MoveTool implements Tool {
         selectedShape.setX2(oldX2);
         selectedShape.setY(oldY);
         selectedShape.setY2(oldY2);
-    } 
+    }
 }

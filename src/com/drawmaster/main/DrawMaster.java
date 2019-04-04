@@ -3,6 +3,7 @@ package com.drawmaster.main;
 import javax.swing.SwingUtilities;
 
 import com.drawmaster.obj.ui.*;
+import com.drawmaster.obj.visitor.DrawMasterVisitor;
 
 import javax.swing.JFrame;
 
@@ -39,5 +40,9 @@ public class DrawMaster extends JFrame {
         groupBar.setLocation(this.getX() + this.getWidth(), this.getY() + toolPicker.getHeight());
 
         setVisible(true);
+    }
+
+    public void accept(DrawMasterVisitor visitor) {
+        visitor.visit(this);
     }
 }
