@@ -21,7 +21,7 @@ public class FileOpen extends FileCommand {
 
     @Override
     public void execute() {
-        canvas.clearList();
+        Canvas.getInstance().clearList();
 
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Open a file");
@@ -55,7 +55,7 @@ public class FileOpen extends FileCommand {
                     y2 = Integer.parseInt(words.get(++i));
                 } catch (Exception e) {
                 }
-                canvas.addShape(new Oval(x, y, x2, y2));
+                Canvas.getInstance().addShape(new Oval(x, y, x2, y2));
 
                 break;
             case "rectangle":
@@ -66,10 +66,10 @@ public class FileOpen extends FileCommand {
                     y2 = Integer.parseInt(words.get(++i));
                 } catch (Exception e) {
                 }
-                canvas.addShape(new Rectangle(x, y, x2, y2));
+                Canvas.getInstance().addShape(new Rectangle(x, y, x2, y2));
                 break;
             }
-            canvas.repaint();
+            Canvas.getInstance().repaint();
         }
     }
 }

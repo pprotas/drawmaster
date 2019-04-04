@@ -18,13 +18,17 @@ public class Group {
     }
 
     public void draw(Graphics g) {
-        for (Group group : subGroups) {
-            group.draw(g);
+        if (subGroups != null) {
+            for (Group group : subGroups) {
+                group.draw(g);
+            }
         }
 
-        for (Shape shape : shapes) {
-            shape.draw(g);
-        }
+        if(shapes != null) {
+            for (Shape shape : shapes) {
+                shape.draw(g);
+            }
+        }  
     }
 
     public List<Shape> getShapes() {
@@ -58,7 +62,7 @@ public class Group {
     }
 
     public void clear() {
-        shapes = null;
-        subGroups = null;
+        shapes = new LinkedList<Shape>();
+        subGroups = new LinkedList<Group>();
     }
 }

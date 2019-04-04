@@ -20,10 +20,10 @@ import javax.swing.*;
 public class Canvas extends JPanel implements MouseListener, MouseMotionListener {
     private static final long serialVersionUID = 1L;
     private Shape selectedShape; // Currently handled shape
-    private Group mainGroup = new Group(); // All groups on the canvas
+    private Group mainGroup;// All groups on the canvas
 
-    private Invoker commandInvoker = new Invoker();
-    private Tool tool = new OvalTool(this, mainGroup); // Currently selected tool
+    private Invoker commandInvoker;
+    private Tool tool; // Currently selected tool
     private static Canvas instance = new Canvas(); // Singleton instance
 
     private Canvas() {
@@ -34,6 +34,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         setPreferredSize(new Dimension(700, 400));
 
         commandInvoker = new Invoker();
+        mainGroup = new Group();
         tool = new OvalTool(this, mainGroup);
     }
 
@@ -104,11 +105,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     @Override
     public void mousePressed(MouseEvent e) {
         if (tool instanceof MoveTool) {
-            selectedShape.accept(new ShapeMoveVisitor(e)); // Naar wens van de opdrachtgever: Move en Resize zijn geen
-                                                           // commands, maar visitors. Dit betekent dat move en resize
-                                                           // ook geen undo() en redo() hebben. Als je de
-                                                           // command-pattern versie van Move en Resize wil gebruiken
-                                                           // moet je deze 2 if-statements verwijderen.
+            selectedShape.accept(new ShapeMoveVisitor(e));
         } else if (tool instanceof ResizeTool) {
             selectedShape.accept(new ShapeResizeVisitor(e));
         } else {
@@ -159,8 +156,9 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // Antialiasing
 
-        mainGroup.draw(g); // Tekent alle mainGroup
-
+        if (mainGroup != null) {
+            mainGroup.draw(g); // Tekent alle mainGroup
+        }
         if (selectedShape != null) {
             g.setColor(Color.RED);
             selectedShape.draw(g); // Maakt de huidige shape rood en tekent hem
