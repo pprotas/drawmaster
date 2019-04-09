@@ -2,6 +2,9 @@ package com.drawmaster.obj.tool;
 
 import com.drawmaster.obj.shape.Group;
 import com.drawmaster.obj.shape.Shape;
+import com.drawmaster.obj.strategy.Context;
+import com.drawmaster.obj.strategy.OvalDelegate;
+import com.drawmaster.obj.strategy.Strategy;
 import com.drawmaster.obj.ui.Canvas;
 
 import java.awt.event.MouseEvent;
@@ -9,14 +12,23 @@ import java.awt.event.MouseEvent;
 /**
  * ShapeTool
  */
-public abstract class ShapeTool implements Tool {
+public class ShapeTool implements Tool {
     protected Canvas canvas;
-    public Group shapes = new Group();
+    public Group shapes;
     public Shape shape;
-
-    public ShapeTool(Canvas canvas, Group shapes) {
+    private Strategy delegate;
+    
+    public ShapeTool(Canvas canvas, Group shapes, Strategy delegate) {
         this.canvas = canvas;
         this.shapes = shapes;
+        this.delegate = delegate;
+    }
+
+    public Shape mousePressed(MouseEvent e) {
+        Context context = new Context(delegate, e);
+        shape = context.execute();
+        /* shape = new Rectangle(e.getX(), e.getY(), e.getX(), e.getY()); */
+        return shape;
     }
 
     public Shape mouseReleased(MouseEvent e) {
@@ -24,7 +36,7 @@ public abstract class ShapeTool implements Tool {
         shape.setY(e.getY());
         shapes.add(shape);
 
-        canvas.setTool(getType());
+        canvas.setTool(delegate.toString());
         return shape;
     }
 

@@ -2,6 +2,7 @@ package com.drawmaster.obj.ui;
 
 import com.drawmaster.obj.command.*;
 import com.drawmaster.obj.shape.*;
+import com.drawmaster.obj.strategy.*;
 import com.drawmaster.obj.tool.*;
 import com.drawmaster.obj.visitor.*;
 
@@ -35,7 +36,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
         commandInvoker = new Invoker();
         mainGroup = new Group();
-        tool = new OvalTool(this, mainGroup);
+        tool = new ShapeTool(this, mainGroup, new OvalDelegate());
     }
 
     public static Canvas getInstance() {
@@ -74,10 +75,10 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     public void setTool(String tool) {
         switch (tool) {
         case "Oval":
-            setTool(new OvalTool(this, mainGroup));
+            setTool(new ShapeTool(this, mainGroup, new OvalDelegate()));
             break;
         case "Rectangle":
-            setTool(new RectangleTool(this, mainGroup));
+            setTool(new ShapeTool(this, mainGroup, new RectangleDelegate()));
             break;
         case "Select":
             if (mainGroup != null) {
