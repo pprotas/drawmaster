@@ -25,7 +25,7 @@ public class ToolBar extends JDialog implements ActionListener {
 
         this.canvas = canvas;
 
-        setPreferredSize(new Dimension(100, 200));
+        setPreferredSize(new Dimension(200, 200));
 
         GridLayout layout = new GridLayout(0, 2);
         layout.setHgap(2);
@@ -35,7 +35,7 @@ public class ToolBar extends JDialog implements ActionListener {
 
         String[] tools = { "Oval", "Rectangle", "Decorator", "Select", "Move", "Resize" };
         for (String t : tools) {
-            JButton b = new JButton();
+            JButton b = new JButton(t);
             b.addActionListener(this);
             b.setActionCommand(t);
             add(b);
