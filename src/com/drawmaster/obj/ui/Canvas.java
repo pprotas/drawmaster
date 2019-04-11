@@ -1,6 +1,7 @@
 package com.drawmaster.obj.ui;
 
 import com.drawmaster.obj.command.*;
+import com.drawmaster.obj.decorator.TextShapeDecorator;
 import com.drawmaster.obj.shape.*;
 import com.drawmaster.obj.strategy.*;
 import com.drawmaster.obj.tool.*;
@@ -22,10 +23,13 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     private static final long serialVersionUID = 1L;
     private Shape selectedShape; // Currently handled shape
     private Group mainGroup;// All groups on the canvas
+    private Group selectedGroup;
 
     private Invoker commandInvoker;
     private Tool tool; // Currently selected tool
     private static Canvas instance = new Canvas(); // Singleton instance
+    private boolean decorator = false;
+    private String decoratorText = "Decorator working!";
 
     private Canvas() {
         super();
@@ -36,7 +40,8 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
         commandInvoker = new Invoker();
         mainGroup = new Group();
-        tool = new ShapeTool(this, mainGroup, new OvalDelegate());
+        selectedGroup = new Group();
+        tool = new ShapeTool(this, mainGroup, new OvalToolDelegate());
     }
 
     public static Canvas getInstance() {
@@ -75,25 +80,38 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     public void setTool(String tool) {
         switch (tool) {
         case "Oval":
-            setTool(new ShapeTool(this, mainGroup, new OvalDelegate()));
+            setTool(new ShapeTool(this, mainGroup, new OvalToolDelegate()));
             break;
         case "Rectangle":
-            setTool(new ShapeTool(this, mainGroup, new RectangleDelegate()));
+            setTool(new ShapeTool(this, mainGroup, new RectangleToolDelegate()));
+            break;
+        case "Decorator":
+            if(decorator){
+                decorator = false;
+            } else {
+                decorator = true;
+            }
             break;
         case "Select":
             if (mainGroup != null) {
                 setTool(new SelectTool(mainGroup));
             }
+            decorator = false;
             break;
         case "Move":
             if (selectedShape != null) {
                 setTool(new MoveTool(selectedShape));
             }
+            decorator = false;
             break;
         case "Resize":
             if (selectedShape != null) {
                 setTool(new ResizeTool(selectedShape));
             }
+            decorator = false;
+            break;
+        case "AddToGroup":
+            selectefgroup= 
             break;
         }
 
@@ -151,12 +169,14 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         // Antialiasing to prevent jagged circles
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // Antialiasing
-
         if (mainGroup != null) {
             mainGroup.draw(g); // Tekent alle mainGroup
         }
         if (selectedShape != null) {
             g.setColor(Color.RED);
+            if(decorator) {
+                selectedShape.addDecorator(new TextShapeDecorator(decoratorText));
+            }
             selectedShape.draw(g); // Maakt de huidige shape rood en tekent hem
             g.setColor(Color.BLACK);
         }

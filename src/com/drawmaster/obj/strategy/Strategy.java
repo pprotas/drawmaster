@@ -1,5 +1,6 @@
 package com.drawmaster.obj.strategy;
 
+import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import com.drawmaster.obj.shape.Shape;
 
@@ -8,6 +9,7 @@ import com.drawmaster.obj.shape.Shape;
  */
 public interface Strategy {
 
-    public Shape getShape(MouseEvent e);
+    public Shape execute(MouseEvent e);
+    public void draw(Graphics g, Shape shape);
     public String toString();
 }

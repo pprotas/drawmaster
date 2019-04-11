@@ -2,7 +2,6 @@ package com.drawmaster.obj.visitor;
 
 import java.awt.event.MouseEvent;
 
-import com.drawmaster.obj.shape.Rectangle;
 import com.drawmaster.obj.shape.Shape;
 
 /**
