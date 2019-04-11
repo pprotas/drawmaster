@@ -37,7 +37,6 @@ public class SelectTool implements Tool {
         return mousePressed(e);
     }
 
-    @Override
     public String getType() {
         return "Select";
     }

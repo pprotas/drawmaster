@@ -42,7 +42,6 @@ public class MoveTool implements Tool {
         return selectedShape;
     }
 
-    @Override
     public String getType() {
         return "Move";
     }

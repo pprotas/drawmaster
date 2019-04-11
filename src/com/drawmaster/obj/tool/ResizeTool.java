@@ -45,7 +45,6 @@ public class ResizeTool implements Tool {
         selectedShape.setY2(oldY2);
     }
 
-    @Override
     public String getType() {
         return "Resize";
     }

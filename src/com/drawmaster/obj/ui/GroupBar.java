@@ -4,37 +4,40 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 
 import com.drawmaster.obj.shape.Group;
 
 /**
  * GroupBar
  */
-public class GroupBar extends JDialog {
+public class GroupBar extends JDialog implements ActionListener {
 
     private static final long serialVersionUID = 1L;
 
-    private Canvas canvas;
     private Vector<Group> groups;
+    private Vector<String> groupNames;
+    private JList list;
 
-    public GroupBar(Window window, Canvas canvas) {
+    public GroupBar(Window window) {
         super(window);
 
-        this.canvas = canvas;
-
         groups = new Vector<Group>();
+        groupNames = new Vector<String>();
 
-        groups.add(new Group());
+        for(Group group : Canvas.getInstance().getGroups().getGroups()) {
+            groups.add(group);
+            groupNames.add(group.getName());
+        }
 
-        Group group = new Group();
-        groups.add(group);
-
-        setPreferredSize(new Dimension(50, 200));
+        setPreferredSize(new Dimension(0, 200));
 
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
@@ -43,20 +46,95 @@ public class GroupBar extends JDialog {
 
         setLayout(layout);
 
-        JList list = new JList(groups);
-        c.gridx = 2;
-        c.gridy = 3;
+        list = new JList(groupNames);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
+        c.weighty = 2;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 2;
         add(list, c);
 
-        JButton addBut = new JButton();
+        c.weightx = 1;
+        c.weighty = 2;
+        c.fill = GridBagConstraints.BOTH;
+        add(new JScrollPane(list), c);
+
+        JButton addBut = new JButton("+");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.PAGE_END;
+        c.weightx = 0.5;
         c.gridx = 0;
         c.gridy = 1;
+        c.gridwidth = 1;
+        addBut.addActionListener(this);
+        addBut.setActionCommand("Add");
         add(addBut, c);
 
-        JButton delBut = new JButton();
+        JButton delBut = new JButton("Del");
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 0.5;
+        c.gridx = 1;
+        c.gridy = 1;
+        delBut.addActionListener(this);
+        delBut.setActionCommand("Del");
         add(delBut, c);
 
         pack();
         setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String action = e.getActionCommand();
+
+        if (action == "Add") {
+            int index = list.getSelectedIndex();
+            //String val = groupNames.get(index);
+            
+            String val = "";
+
+            if (index != -1) {
+                val = groupNames.get(index);
+            }
+
+            Group group;
+            if (index == -1) {
+                int size = Canvas.getInstance().getGroups().getGroups().size();
+                group = new Group("group" + (size+1));
+            }
+            else {
+                int size = groups.get(index).getGroups().size();
+                group = new Group(val + "." + (size+1));
+            }
+            if (index == -1) {
+                Canvas.getInstance().getGroups().add(group);
+            }
+            else {
+                findGroup(Canvas.getInstance().getGroups(), val).add(group);
+            }
+            groups.add(group);
+            groupNames.add(group.getName());
+            list.updateUI();
+        }
+        if (action == "Del") {
+            int index = list.getSelectedIndex();
+            groups.remove(index);
+            groupNames.remove(index);
+            list.clearSelection();
+            list.updateUI();
+        }
+    }
+
+    public Group findGroup(Group group, String name) {
+        for (Group g : group.getGroups()) {
+            if (g.getName() == name) {
+                return g;
+            }
+            else {
+                return findGroup(g, name);
+            }
+        }
+        return group;
     }
 }

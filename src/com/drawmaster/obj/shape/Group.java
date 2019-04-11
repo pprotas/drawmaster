@@ -1,6 +1,9 @@
 package com.drawmaster.obj.shape;
 
 import java.util.List;
+
+import com.sun.org.apache.bcel.internal.generic.GETFIELD;
+
 import java.awt.Graphics;
 import java.util.LinkedList;
 
@@ -9,10 +12,17 @@ import java.util.LinkedList;
  */
 public class Group {
 
+    private String groupName;
     private List<Shape> shapes;
     private List<Group> subGroups;
 
     public Group() {
+        shapes = new LinkedList<Shape>();
+        subGroups = new LinkedList<Group>();
+    }
+
+    public Group(String groupName) {
+        this.groupName = groupName;
         shapes = new LinkedList<Shape>();
         subGroups = new LinkedList<Group>();
     }
@@ -31,6 +41,10 @@ public class Group {
         }  
     }
 
+    public String getName() {
+        return groupName;
+    }
+
     public List<Shape> getShapes() {
         List<Shape> shapes = new LinkedList<Shape>();
 
@@ -38,11 +52,15 @@ public class Group {
             shapes.add(shape);
         }
 
-        for (Group group : subGroups) {
-            shapes.addAll(group.getShapes());
-        }
+        //for (Group group : subGroups) {
+        //    shapes.addAll(group.getShapes());
+        //}
 
         return shapes;
+    }
+
+    public List<Group> getGroups() {
+        return subGroups;
     }
 
     public void add(Shape shape) {
