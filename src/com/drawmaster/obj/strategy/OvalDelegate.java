@@ -1,19 +1,17 @@
 package com.drawmaster.obj.strategy;
 
-import com.drawmaster.obj.shape.*;
-import java.awt.event.MouseEvent;
+import java.awt.Graphics;
+
+import com.drawmaster.obj.shape.Shape;
 
 /**
  * OvalDelegate
  */
 public class OvalDelegate implements Strategy {
-
-    @Override
-    public Shape getShape(MouseEvent e) {
-        return new Oval(e.getX(), e.getY(), e.getX(), e.getY());
+    public void draw(Graphics g, Shape shape) {
+        g.drawOval(Math.min(shape.getX(), shape.getX2()), Math.min(shape.getY(), shape.getY2()), Math.abs(shape.getX() - shape.getX2()), Math.abs(shape.getY() - shape.getY2()));
     }
-
-    @Override
+    
     public String toString() {
         return "Oval";
     }

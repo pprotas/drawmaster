@@ -36,7 +36,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
         commandInvoker = new Invoker();
         mainGroup = new Group();
-        tool = new ShapeTool(this, mainGroup, new OvalDelegate());
+        tool = new ShapeTool(this, mainGroup, new OvalToolDelegate());
     }
 
     public static Canvas getInstance() {
@@ -75,10 +75,10 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     public void setTool(String tool) {
         switch (tool) {
         case "Oval":
-            setTool(new ShapeTool(this, mainGroup, new OvalDelegate()));
+            setTool(new ShapeTool(this, mainGroup, new OvalToolDelegate()));
             break;
         case "Rectangle":
-            setTool(new ShapeTool(this, mainGroup, new RectangleDelegate()));
+            setTool(new ShapeTool(this, mainGroup, new RectangleToolDelegate()));
             break;
         case "Select":
             if (mainGroup != null) {

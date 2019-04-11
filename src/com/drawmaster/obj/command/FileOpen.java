@@ -6,8 +6,9 @@ import java.util.Scanner;
 import javax.swing.JFileChooser;
 
 import com.drawmaster.main.DrawMaster;
-import com.drawmaster.obj.shape.Oval;
-import com.drawmaster.obj.shape.Rectangle;
+import com.drawmaster.obj.shape.Shape;
+import com.drawmaster.obj.strategy.OvalDelegate;
+import com.drawmaster.obj.strategy.RectangleDelegate;
 import com.drawmaster.obj.ui.Canvas;
 
 /**
@@ -33,6 +34,7 @@ public class FileOpen extends FileCommand {
         try {
             sc = new Scanner(fileChooser.getSelectedFile());
         } catch (Exception e) {
+            
         }
 
         ArrayList<String> words = new ArrayList<String>();
@@ -47,7 +49,7 @@ public class FileOpen extends FileCommand {
             int x2 = 0;
             int y2 = 0;
             switch (words.get(i)) {
-            case "oval":
+            case "Oval":
                 try {
                     x = Integer.parseInt(words.get(++i));
                     y = Integer.parseInt(words.get(++i));
@@ -55,10 +57,10 @@ public class FileOpen extends FileCommand {
                     y2 = Integer.parseInt(words.get(++i));
                 } catch (Exception e) {
                 }
-                Canvas.getInstance().addShape(new Oval(x, y, x2, y2));
+                Canvas.getInstance().addShape(new Shape(x, y, x2, y2, new OvalDelegate()));
 
                 break;
-            case "rectangle":
+            case "Rectangle":
                 try {
                     x = Integer.parseInt(words.get(++i));
                     y = Integer.parseInt(words.get(++i));
@@ -66,7 +68,7 @@ public class FileOpen extends FileCommand {
                     y2 = Integer.parseInt(words.get(++i));
                 } catch (Exception e) {
                 }
-                Canvas.getInstance().addShape(new Rectangle(x, y, x2, y2));
+                Canvas.getInstance().addShape(new Shape(x, y, x2, y2, new RectangleDelegate()));
                 break;
             }
             Canvas.getInstance().repaint();

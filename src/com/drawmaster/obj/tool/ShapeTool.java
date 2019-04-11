@@ -25,8 +25,8 @@ public class ShapeTool implements Tool {
     }
 
     public Shape mousePressed(MouseEvent e) {
-        Context context = new Context(delegate, e);
-        shape = context.execute();
+        Context context = new Context(delegate);
+        shape = context.execute(e);
         /* shape = new Rectangle(e.getX(), e.getY(), e.getX(), e.getY()); */
         return shape;
     }

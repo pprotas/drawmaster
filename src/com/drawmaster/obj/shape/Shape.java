@@ -4,29 +4,38 @@ import java.awt.Graphics;
 import java.awt.Point;
 import javax.swing.JComponent;
 
+import com.drawmaster.obj.strategy.Context;
+import com.drawmaster.obj.strategy.Strategy;
 import com.drawmaster.obj.visitor.ShapeVisitor;
 
 /**
  * Shape
  */
-public abstract class Shape extends JComponent {
+public class Shape extends JComponent {
 
     private static final long serialVersionUID = 1L;
     protected int x;
     protected int y;
     protected int x2;
     protected int y2;
+    private Strategy delegate;
 
-    Shape(int x, int y, int x2, int y2) {
+    public Shape(int x, int y, int x2, int y2, Strategy delegate) {
         this.x = x;
         this.y = y;
         this.x2 = x2;
         this.y2 = y2;
+        this.delegate = delegate;
     }
 
-    public abstract void draw(Graphics g); // Allows for dynamic draw() calls for different shapes
+    public void draw(Graphics g) {
+        Context context = new Context(delegate);
+        context.draw(g, this);
+    } // Allows for dynamic draw() calls for different shapes
 
-    public abstract String getType();
+    public String getType() {
+        return delegate.toString();
+    }
 
     public void accept(ShapeVisitor visitor) {
         visitor.visit(this);
