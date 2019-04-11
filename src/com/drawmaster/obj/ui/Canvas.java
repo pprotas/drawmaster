@@ -41,6 +41,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
         commandInvoker = new Invoker();
         mainGroup = new Group();
         selectedGroup = new Group();
+        selectedGroup = mainGroup;
         tool = new ShapeTool(this, mainGroup, new OvalToolDelegate());
     }
 
@@ -80,10 +81,10 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
     public void setTool(String tool) {
         switch (tool) {
         case "Oval":
-            setTool(new ShapeTool(this, mainGroup, new OvalToolDelegate()));
+            setTool(new ShapeTool(this, selectedGroup, new OvalToolDelegate()));
             break;
         case "Rectangle":
-            setTool(new ShapeTool(this, mainGroup, new RectangleToolDelegate()));
+            setTool(new ShapeTool(this, selectedGroup, new RectangleToolDelegate()));
             break;
         case "Decorator":
             if(decorator){
@@ -111,7 +112,8 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
             decorator = false;
             break;
         case "AddToGroup":
-            selectefgroup= 
+            selectedGroup = GroupBar.selectGroup();
+
             break;
         }
 

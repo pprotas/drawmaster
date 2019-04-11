@@ -15,16 +15,18 @@ public class Group {
     private String groupName;
     private List<Shape> shapes;
     private List<Group> subGroups;
+    private Group parent;
 
     public Group() {
         shapes = new LinkedList<Shape>();
         subGroups = new LinkedList<Group>();
     }
 
-    public Group(String groupName) {
+    public Group(String groupName, Group parent) {
         this.groupName = groupName;
         shapes = new LinkedList<Shape>();
         subGroups = new LinkedList<Group>();
+        this.parent = parent;
     }
 
     public void draw(Graphics g) {
@@ -61,6 +63,10 @@ public class Group {
 
     public List<Group> getGroups() {
         return subGroups;
+    }
+
+    public Group getParent() {
+        return parent;
     }
 
     public void add(Shape shape) {

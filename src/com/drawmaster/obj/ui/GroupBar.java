@@ -23,12 +23,11 @@ public class GroupBar extends JDialog implements ActionListener {
     private static final long serialVersionUID = 1L;
 
     private Vector<Group> groups;
-    private Vector<String> groupNames;
-    private JList list;
+    private static Vector<String> groupNames;
+    private static JList list;
 
     public GroupBar(Window window) {
         super(window);
-
         groups = new Vector<Group>();
         groupNames = new Vector<String>();
 
@@ -101,11 +100,11 @@ public class GroupBar extends JDialog implements ActionListener {
             Group group;
             if (index == -1) {
                 int size = Canvas.getInstance().getGroups().getGroups().size();
-                group = new Group("group" + (size+1));
+                group = new Group("group" + (size+1), Canvas.getInstance().getGroups());
             }
             else {
                 int size = groups.get(index).getGroups().size();
-                group = new Group(val + "." + (size+1));
+                group = new Group(val + "." + (size+1), findGroup(Canvas.getInstance().getGroups(), val));
             }
             if (index == -1) {
                 Canvas.getInstance().getGroups().add(group);
@@ -119,14 +118,22 @@ public class GroupBar extends JDialog implements ActionListener {
         }
         if (action == "Del") {
             int index = list.getSelectedIndex();
-            groups.remove(index);
-            groupNames.remove(index);
+            String val = groupNames.get(index);
+            Group g = findGroup(Canvas.getInstance().getGroups(), val);
+            g.getParent().remove(g);
+            groups.clear();
+            groupNames.clear();
+            for (Group group : Canvas.getInstance().getGroups().getGroups()) {
+                groups.add(g);
+                groupNames.add(group.getName());
+            }
+            Canvas.getInstance().repaint();
             list.clearSelection();
             list.updateUI();
         }
     }
 
-    public Group findGroup(Group group, String name) {
+    public static Group findGroup(Group group, String name) {
         for (Group g : group.getGroups()) {
             if (g.getName() == name) {
                 return g;
@@ -136,5 +143,12 @@ public class GroupBar extends JDialog implements ActionListener {
             }
         }
         return group;
+    }
+
+    public static Group selectGroup() {
+        int index = list.getSelectedIndex();
+        String val = groupNames.get(index);
+
+        return findGroup(Canvas.getInstance().getGroups(), val);
     }
 }
