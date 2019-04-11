@@ -1,5 +1,6 @@
 package com.drawmaster.obj.strategy;
 
+import com.drawmaster.obj.decorator.TextShapeDecorator;
 import com.drawmaster.obj.shape.*;
 import java.awt.event.MouseEvent;
 

@@ -4,6 +4,8 @@ import java.awt.Graphics;
 import java.awt.Point;
 import javax.swing.JComponent;
 
+import com.drawmaster.obj.decorator.ShapeDecorator;
+import com.drawmaster.obj.decorator.TextShapeDecorator;
 import com.drawmaster.obj.strategy.Context;
 import com.drawmaster.obj.strategy.Strategy;
 import com.drawmaster.obj.visitor.ShapeVisitor;
@@ -19,6 +21,7 @@ public class Shape extends JComponent {
     protected int x2;
     protected int y2;
     private Strategy delegate;
+    private ShapeDecorator decorator;
 
     public Shape(int x, int y, int x2, int y2, Strategy delegate) {
         this.x = x;
@@ -27,12 +30,17 @@ public class Shape extends JComponent {
         this.y2 = y2;
         this.delegate = delegate;
     }
-
     public void draw(Graphics g) {
         Context context = new Context(delegate);
         context.draw(g, this);
+        if (decorator != null) {
+            decorator.draw(g, this);
+        }
     } // Allows for dynamic draw() calls for different shapes
 
+    public void addDecorator(ShapeDecorator decorator) {
+        this.decorator = decorator;
+    }
     public String getType() {
         return delegate.toString();
     }

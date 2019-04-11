@@ -33,7 +33,7 @@ public class ToolBar extends JDialog implements ActionListener {
 
         setLayout(layout);
 
-        String[] tools = { "Oval", "Rectangle", "Select", "Move", "Resize" };
+        String[] tools = { "Oval", "Rectangle", "Decorator", "Select", "Move", "Resize" };
         for (String t : tools) {
             JButton b = new JButton();
             b.addActionListener(this);
