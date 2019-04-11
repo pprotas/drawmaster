@@ -25,7 +25,7 @@ public class ToolBar extends JDialog implements ActionListener {
 
         this.canvas = canvas;
 
-        setPreferredSize(new Dimension(50, 200));
+        setPreferredSize(new Dimension(100, 200));
 
         GridLayout layout = new GridLayout(0, 2);
         layout.setHgap(2);

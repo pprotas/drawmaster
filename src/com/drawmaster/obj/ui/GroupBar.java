@@ -34,7 +34,7 @@ public class GroupBar extends JDialog {
         Group group = new Group();
         groups.add(group);
 
-        setPreferredSize(new Dimension(50, 200));
+        setPreferredSize(new Dimension(100, 200));
 
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
